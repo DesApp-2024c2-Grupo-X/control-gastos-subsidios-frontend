@@ -152,6 +152,10 @@ export const Compras = (idProyecto) => {
                 ))}
               </TableBody>
               <TableBody>
+                <StyledTableCell
+                  align="right"
+                  style={{ fontWeight: 'bold', backgroundColor: '#E5E9F0' }}
+                ></StyledTableCell>
                 {[0, 1, 2, 3].map((key) => (
                   <StyledTableCell
                     key={key}
@@ -208,7 +212,7 @@ export const Compras = (idProyecto) => {
 };
 const useStyles = makeStyles({
   container: {
-    width: '98%',
+    width: '100%',
   },
   header: {
     display: 'flex',

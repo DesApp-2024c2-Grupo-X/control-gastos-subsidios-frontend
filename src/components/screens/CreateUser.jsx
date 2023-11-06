@@ -12,6 +12,7 @@ import {
 } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import moment from 'moment';
+import esLocale from 'date-fns/locale/es';
 
 const useStyles = makeStyles(() => ({
   formContainer: {
@@ -170,7 +171,7 @@ const CreateUser = () => {
             variant="outlined"
             className={classes.field}
           />
-          <MuiPickersUtilsProvider utils={DateFnsUtils}>
+          <MuiPickersUtilsProvider utils={DateFnsUtils} locale={esLocale}>
             <KeyboardDatePicker
               id="date-picker-dialog"
               label="Fecha nacimiento"

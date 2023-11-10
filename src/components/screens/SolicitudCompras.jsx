@@ -58,11 +58,8 @@ const SolicitudCompra = () => {
     try {
       const id = sessionStorage.getItem('idCompra');
       const unaCompra = await getCompraByID(id);
-      console.log('unaCompra', unaCompra);
-      console.log('Compra', compra);
-      console.log('ID', id);
       setCompra(unaCompra);
-      const proveedor = await getProveedorById(unaCompra.idProv);
+      const proveedor = await getProveedorById(unaCompra.idProveedor);
       setProveedor(proveedor.nombre);
     } catch (err) {
       console.log('ERROR FETCH API [compras]: ' + err);

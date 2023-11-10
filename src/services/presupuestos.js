@@ -13,7 +13,7 @@ export function getPresupuesto() {
 export function getRubros() {
   return rubros;
 }
-export async function getPresupuesto2(idProyecto) {
+export async function getPresupuestoByIdProyecto(idProyecto) {
   //const endpoint = `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}`;
   const url = `http://localhost:3001/api/subsidiosAsignados/getTotalSubsidios/${idProyecto}`;
   const response = await fetch(url, {

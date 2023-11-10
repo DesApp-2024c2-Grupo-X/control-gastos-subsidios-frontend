@@ -271,7 +271,7 @@ export const VistaProyecto = () => {
                     scope="row"
                     onClick={() => handleSelectCompras(compras.id)}
                     component={Link}
-                    to={'/admin/proyectView/compra'} //edit cuando se cree la vista de compra singular
+                    to={'/admin/projectView/compra'} //edit cuando se cree la vista de compra singular
                   >
                     {compras.factura}
                   </StyledTableCell>

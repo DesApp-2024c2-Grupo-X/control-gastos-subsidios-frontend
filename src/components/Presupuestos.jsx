@@ -2,7 +2,7 @@ import React from 'react';
 import { Footer } from './Footer';
 import { makeStyles } from '@material-ui/core/styles';
 import Divider from '@material-ui/core/Divider';
-import { getPresupuesto, getPresupuesto2 } from '../services/presupuestos.js';
+import { getPresupuestoByIdProyecto } from '../services/presupuestos.js';
 import {
   getAllGastosPorRubro,
   getComprasByProyecto,
@@ -35,7 +35,7 @@ export const Presupuestos = ({ idProyecto }) => {
     async function fetchProyectos() {
       if (idProyecto)
         try {
-          const presupuestoTotal = await getPresupuesto2(idProyecto);
+          const presupuestoTotal = await getPresupuestoByIdProyecto(idProyecto);
           const compras = await getComprasByProyecto(idProyecto);
           const gastos = calculateTotalExpenses(compras);
           const gastosPorRubro = await getAllGastosPorRubro(idProyecto);

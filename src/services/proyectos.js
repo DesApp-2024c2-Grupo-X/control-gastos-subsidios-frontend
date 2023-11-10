@@ -86,7 +86,7 @@ export async function getUserByProyect(idProyecto) {
 }
 
 export async function getProyectoById(idProyecto) {
-  const url = `http://localhost:3001/api/proyectos/findByName/${idProyecto}`;
+  const url = `http://localhost:3001/api/proyectos/findById/${idProyecto}`;
   const response = await fetch(url, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin

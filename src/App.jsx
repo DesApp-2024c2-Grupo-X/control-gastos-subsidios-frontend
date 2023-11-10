@@ -85,13 +85,13 @@ export default function App() {
     {
       text: 'Proyectos',
       icon: <LibraryBooks />,
-      path: '/admin/proyects',
+      path: '/admin/projects',
       canBeDisabled: false,
     },
     {
       text: 'Cargar proyecto',
       icon: <NoteAdd />,
-      path: '/admin/createProyect',
+      path: '/admin/createProject',
       canBeDisabled: false,
     },
     {
@@ -122,8 +122,8 @@ export default function App() {
       const proyectoActualId = sessionStorage.getItem('proyectoActualId');
       setRol(role);
       //Fix to first path to admin
-      if (role === 'admin' && !window.location.href.endsWith('/admin/proyects'))
-        window.location.href = '/admin/proyects';
+      if (role === 'admin' && !window.location.href.endsWith('/admin/projects'))
+        window.location.href = '/admin/projects';
       //Fix to first path to user
       if (role === 'user' && window.location.href.includes('/admin'))
         window.location.href = '/';
@@ -160,21 +160,11 @@ export default function App() {
                     <Switch>
                       <Route path="/login" component={Login} />
                       <Route
-                        path="/admin/createProyect"
+                        path="/admin/createProject"
                         component={CreateProyect}
                       />
                       <Route path="/admin/createUser" component={CreateUser} />
-                      <Route path="/admin/proyects"
-                        exact
-                        render={(props) => (
-                          <ProyectsLists
-                            ProyectsLists
-                            handleSetProyect={handleSetProyect}
-                            {...props}
-                          />
-                        )}
-                      />
-                      <Route path="/admin/proyectView"
+                      <Route path="/admin/projectView"
                         exact
                         component={() => (
                           <VistaProyecto
@@ -183,7 +173,7 @@ export default function App() {
                           />
                         )}
                       />
-                      <Route path="/admin/proyectView/compra"
+                      <Route path="/admin/projectView/compra"
                         exact
                         component={() => (
                           <SolicitudCompra/>
@@ -194,7 +184,7 @@ export default function App() {
                         exact
                         component={Error404}
                       />
-                      <Route path="/admin/proyects" component={ProyectsLists} />
+                      <Route path="/admin/projects" component={ProyectsLists} />
                     </Switch>
                   </div>
                 </div>

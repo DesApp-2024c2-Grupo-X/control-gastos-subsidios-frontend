@@ -48,12 +48,12 @@ export const ProyectsList = () => {
     //setIdProyecto(id);
   };
   useEffect(() => {
-    async function getProyects() {
+    async function getProjects() {
       const proyectos = await getProyectsForAdmin();
       console.log(proyectos)
       setProyects(proyectos);
     }
-    getProyects();
+    getProjects();
   }, []) //only de first render
   
   return (
@@ -80,7 +80,7 @@ export const ProyectsList = () => {
                   scope="row"
                   onClick={() => handleSelectProyect(proyecto.id)}
                   component={Link}
-                  to={'/admin/proyectView'}//edit cuando se cree la vista de proyecto singular con compra
+                  to={'/admin/projectView'}//edit cuando se cree la vista de proyecto singular con compra
                 >
                   {proyecto.titulo}
                 </StyledTableCell>

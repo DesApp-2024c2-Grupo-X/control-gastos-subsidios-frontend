@@ -58,6 +58,7 @@ const Login = ({
     const user = await getUser(userName);
     const checked = checkedLogin(user);
     const role = user?.data?.rol;
+    if (role == "admin") {window.location.href = '/admin/projects'}
     setError(!checked); //if checked is false error is true.
     setLoggedIn(checked); //true = login ok | false = login fail
     setRol(role);
@@ -132,15 +133,12 @@ const Login = ({
               {Messages.iniciarSession}
             </Button>
           </CardActions>
-          {/* <div className={$.olvidoPassword}>
-            <a href="http://www.google.com">{Messages.olvidoPassword}</a>
-          </div> */}
+          
         </div>
       </div>
     );
   };
 
-  //MAIN RENDERING
   return (
     <div className="flex-container">
       <div>{Wallpallper()}</div>

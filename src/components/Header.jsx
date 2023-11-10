@@ -1,4 +1,3 @@
-/* eslint-disable react-hooks/exhaustive-deps */
 import React, { useState } from 'react';
 import { Button, makeStyles, MenuItem, Menu } from '@material-ui/core';
 import { Person, ExpandMore } from '@material-ui/icons';
@@ -17,7 +16,9 @@ export default function Header(props) {
     sessionStorage.setItem('loggedIn', false);
     sessionStorage.removeItem('username');
     sessionStorage.removeItem('password');
+    sessionStorage.removeItem('role');
     props.setLoggedIn(false);
+    window.location.href = '/'
   };
 
   const openConfig = () => {
@@ -31,7 +32,7 @@ export default function Header(props) {
           onClick={(e) => handleClick(e)}
           endIcon={React.cloneElement(<ExpandMore />)}
         >
-          {/* <Mail className={$.icon} /> */}
+          
           <Person className={$.icon} />
           <h5>{props.userName}</h5>
         </Button>
@@ -40,9 +41,7 @@ export default function Header(props) {
           open={open}
           onClose={handleClose}
           className={$.menu}
-        >
-          {/* <MenuItem className={$.menuItem} onClick={handleClose}>Configuracion</MenuItem> */}
-          {/* <MenuItem className={$.menuItem} divider={true} onClick={handleClose}>Mi perfil</MenuItem> */}
+        >        
           <MenuItem className={$.menuItem} onClick={handleLogOut}>
             Cerrar Sesión
           </MenuItem>

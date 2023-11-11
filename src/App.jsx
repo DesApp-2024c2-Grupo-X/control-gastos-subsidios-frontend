@@ -134,7 +134,7 @@ useEffect(() => {
 useEffect(() => {
   // Redirección después de que se ha establecido el rol
   if (rol === 'admin' && !window.location.href.endsWith('/admin/projects')) {
-    window.location.href = '/admin/projects';
+    window.location.href = 'admin/projects';
   }
 }, [rol]);
 

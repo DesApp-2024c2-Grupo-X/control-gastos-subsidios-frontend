@@ -114,27 +114,33 @@ export default function App() {
     fetchProyecto();
   }, [idProyecto]);
 
-  useEffect(() => {
-    function checkLogin() {
-      const loggedIn = sessionStorage.getItem('loggedIn');
-      const usuario = sessionStorage.getItem('username');
-      const role = sessionStorage.getItem('role');
-      const proyectoActualId = sessionStorage.getItem('proyectoActualId');
-      setRol(role);
-      
-      if (role === 'admin' && !window.location.href.includes('/admin'))
-        window.location.href = '/admin/projects';
-      
-      if (role === 'user' && window.location.href.includes('/admin'))
-        window.location.href = '/';
+  // ...
 
-      setUserName(usuario);
-      setIdProyecto(proyectoActualId);
-      loggedIn === 'true' ? setLoggedIn(true) : setLoggedIn(false);
-      setInit(true);
-    }
-    checkLogin();
-  }, []);
+useEffect(() => {
+  function checkLogin() {
+    const loggedIn = sessionStorage.getItem('loggedIn');
+    const usuario = sessionStorage.getItem('username');
+    const role = sessionStorage.getItem('role');
+    const proyectoActualId = sessionStorage.getItem('proyectoActualId');
+    setRol(role);
+    setUserName(usuario);
+    setIdProyecto(proyectoActualId);
+    loggedIn === 'true' ? setLoggedIn(true) : setLoggedIn(false);
+    setInit(true);
+  }
+  checkLogin();
+}, []);
+
+useEffect(() => {
+  // Redirección después de que se ha establecido el rol
+  if (rol === 'admin' && !window.location.href.endsWith('/admin/projects')) {
+    window.location.href = '/admin/projects';
+  }
+}, [rol]);
+
+// ...
+
+  
   return (
     //ToDo: Como quitar espacio sobrante en el borde derecho.
     init ? (

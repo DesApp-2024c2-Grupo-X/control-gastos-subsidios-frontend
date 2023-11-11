@@ -58,7 +58,7 @@ const Login = ({
     const user = await getUser(userName);
     const checked = checkedLogin(user);
     const role = user?.data?.rol;
-    if (role == "admin") {window.location.href = '/admin/projects'}
+    //if (role == "admin") {window.location.href = '/admin/projects'}
     setError(!checked); //if checked is false error is true.
     setLoggedIn(checked); //true = login ok | false = login fail
     setRol(role);

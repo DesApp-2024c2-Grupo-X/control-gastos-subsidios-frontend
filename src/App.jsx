@@ -28,7 +28,6 @@ import { useEffect, useState } from 'react';
 import CreateProyect from './components/screens/CreateProyect';
 import CreateUser from './components/screens/CreateUser';
 import ProyectsLists from './components/screens/ProyectsLists';
-import { setUserActualProject } from './services/usuarios';
 import { VistaProyecto } from './components/screens/VistaProyecto';
 import SolicitudCompra from './components/screens/SolicitudCompras';
 export default function App() {
@@ -40,11 +39,6 @@ export default function App() {
   const [rol, setRol] = useState();
   const [init, setInit] = useState(false);
   const [proyectoActual, setProyectoActual] = useState(null);
-
-  const handleSetProyect = async (id) => {
-    sessionStorage.setItem('proyectoActualId', id);
-    setIdProyecto(id);
-  };
 
   const userSideBarOptions = [
     { text: 'Proyectos', icon: <Home />, path: '/', canBeDisabled: false },
@@ -100,23 +94,14 @@ export default function App() {
       path: '/admin/createUser',
       canBeDisabled: false,
     },
+
   ];
 
-  useEffect(() => {
-    async function fetchProyecto() {
-      try {
-        const proyecto = await getProyectoById(idProyecto);
-        setProyectoActual(proyecto[0]);
-      } catch (err) {
-        console.log('ERROR FETCH API [proyecto]: ' + err);
-      }
-    }
-    fetchProyecto();
-  }, [idProyecto]);
+  function handleSetProyect (id) {
+    sessionStorage.setItem('proyectoActualId', id);
+    setIdProyecto(id);
+  }
 
-  // ...
-
-useEffect(() => {
   function checkLogin() {
     const loggedIn = sessionStorage.getItem('loggedIn');
     const usuario = sessionStorage.getItem('username');
@@ -128,18 +113,30 @@ useEffect(() => {
     loggedIn === 'true' ? setLoggedIn(true) : setLoggedIn(false);
     setInit(true);
   }
-  checkLogin();
-}, []);
+
+  async function fetchProyecto() {
+    try {
+      const proyecto = await getProyectoById(idProyecto);
+      setProyectoActual(proyecto[0]);
+    } catch (err) {
+      console.log('ERROR FETCH API [proyecto]: ' + err);
+    }
+  }
+
+  function setPathRolAdmin(){
+    if (rol === 'admin' && !window.location.href.endsWith('/admin/projects')) {
+      window.location.href = 'admin/projects';
+    }
+  }
 
 useEffect(() => {
+   // Verificar Login
+   checkLogin();
   // Redirección después de que se ha establecido el rol
-  if (rol === 'admin' && !window.location.href.endsWith('/admin/projects')) {
-    window.location.href = 'admin/projects';
-  }
-}, [rol]);
-
-// ...
-
+  setPathRolAdmin()
+  // Verificar proyectos
+  fetchProyecto(); 
+}, [rol,idProyecto]);
   
   return (
     //ToDo: Como quitar espacio sobrante en el borde derecho.
@@ -190,8 +187,7 @@ useEffect(() => {
                         path="/error"
                         exact
                         component={Error404}
-                      />
-                      
+                      />                      
                     </Switch>
                   </div>
                 </div>

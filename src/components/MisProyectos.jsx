@@ -52,73 +52,71 @@ const StyledTableHeadTerminados = withStyles(() => ({
   },
 }))(TableHead);
 
-const circularProgressWithValue = (nivelEjecucion) => {
-  return (
-    <Box position="relative" display="inline-flex">
-      <CircularProgress variant="determinate" value={nivelEjecucion} />
-      <Box
-        top={0}
-        left={0}
-        bottom={0}
-        right={0}
-        position="absolute"
-        display="flex"
-        alignItems="center"
-        justifyContent="center"
-      >
-        <Typography variant="caption" color="textSecondary">
-          {nivelEjecucion}%
-        </Typography>
-      </Box>
-    </Box>
-  );
-};
-
 export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
   const $ = useStyles();
   const [proyectosEnCurso, setProyectosEnCurso] = useState([]);
   const [compras, setCompras] = useState([]);
   const [presupuesto, setPresupuesto] = useState([]);
+  const [isMounted, setMounted] = useState(true);
 
-  const handleSelect = (id) => {
-    if (id === idProyecto) {
+  const circularProgressWithValue = (nivelEjecucion) => {
+    return (
+      <Box position="relative" display="inline-flex">
+        <CircularProgress variant="determinate" value={nivelEjecucion} />
+        <Box
+          top={0}
+          left={0}
+          bottom={0}
+          right={0}
+          position="absolute"
+          display="flex"
+          alignItems="center"
+          justifyContent="center"
+        >
+          <Typography variant="caption" color="textSecondary">
+            {nivelEjecucion}%
+          </Typography>
+        </Box>
+      </Box>
+    );
+  };
+  
+  const handleSelect = (id,idProyecto) => {
+    if (id == idProyecto) {
       handleSetProyect(null);
+      setMounted(false)
     } else {
       handleSetProyect(id);
+      setMounted(true)
     }
   };
-
-  useEffect(() => {
-    let isMounted = true;
-    async function fetchData() {
-      const proyectos = await getProyecto(userName);
-      console.log("Proyect for user: ",proyectos)
-      //const comprasRealizadas = await getAllCompras();
-      const comprasRealizadas = await getComprasByProyecto(idProyecto)
-      const presupuestoProyecto = await getPresupuesto();
-      if (isMounted) {
-        setCompras(comprasRealizadas);
-        setProyectosEnCurso(proyectos);
-        setPresupuesto(presupuestoProyecto);
-      }
-    }
-    fetchData();
-    return () => {
-      isMounted = false;
-    };
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  const calcularNivelEjecucion = (proyectoId) => {
-    // const comprasRealizadasEnproyecto = compras.filter(
-    //   (compra) => compra.idProyecto == proyectoId
-    // );
-    // const gastos = calculateTotalExpenses(comprasRealizadasEnproyecto);
+  
+  
+  
+  const calcularNivelEjecucion = () => {
     const gastos = calculateTotalExpenses(compras);
     const totalPresupuesto = presupuesto.total;
-    const ejecucion = nivelDeEjecucion(totalPresupuesto, gastos); //Truncamiento del porcentaje.
+    const ejecucion = nivelDeEjecucion(totalPresupuesto, gastos); 
     return ejecucion;
   };
+  
+  async function fetchData(userName) {
+    const proyectos = await getProyecto(userName);
+    console.log("Proyect for user: ",proyectos)
+    //const comprasRealizadas = await getAllCompras();
+    const comprasRealizadas = await getComprasByProyecto(idProyecto)
+    const presupuestoProyecto = await getPresupuesto();
+    if (isMounted) {
+      setCompras(comprasRealizadas);
+      setProyectosEnCurso(proyectos);
+      setPresupuesto(presupuestoProyecto);
+    }
+  }
+  useEffect(() => {   
+    //Cargar proyectos
+    fetchData(userName);        
+  }, []);
+
 
   return (
     <>
@@ -164,14 +162,14 @@ export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
                 </StyledTableCell>
                 <StyledTableCell align="center">
                   {circularProgressWithValue(
-                    calcularNivelEjecucion(proyecto.id)
+                    calcularNivelEjecucion(compras, presupuesto)
                   )}
                 </StyledTableCell>
                 <StyledTableCell>
                   <Button
                     variant="contained"
                     className={$.button}
-                    onClick={() => handleSelect(proyecto.id)}
+                    onClick={() => handleSelect(proyecto.id, idProyecto)}
                   >
                     {idProyecto !== null &&
                     proyecto.id.toString() === idProyecto.toString()

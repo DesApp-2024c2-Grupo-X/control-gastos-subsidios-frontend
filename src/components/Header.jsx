@@ -60,7 +60,7 @@ export default function Header(props) {
             <h3 className={$.text}>
               {props.proyecto
                 ? props.proyecto.titulo
-                : 'Ninguno. Debe seleccionar uno de los proyectos en curso de la sección Proyectos.'}
+                : 'No hay proyecto seleccionado puede seleccionar uno de los proyectos en curso de la sección Proyectos.'}
             </h3>
           </>
         )}

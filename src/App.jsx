@@ -30,6 +30,7 @@ import CreateUser from './components/screens/CreateUser';
 import ProyectsLists from './components/screens/ProyectsLists';
 import { VistaProyecto } from './components/screens/VistaProyecto';
 import SolicitudCompra from './components/screens/SolicitudCompras';
+import Soporte from './components/screens/Soporte';
 export default function App() {
   const $ = useStyles();
   const [loggedIn, setLoggedIn] = useState();
@@ -69,10 +70,10 @@ export default function App() {
     {
       text: 'Normativas I+D',
       icon: <Info />,
-      path: '/proyectos/normativas',
+      path: '/normativas',
       canBeDisabled: false,
     },
-    { text: 'Soporte', icon: <Help />, path: '/', canBeDisabled: false },
+    { text: 'Soporte', icon: <Help />, path: '/soporte', canBeDisabled: false },
   ];
 
   const adminSideBarOptions = [
@@ -258,7 +259,7 @@ useEffect(() => {
                     />
                     <Route path="/normativas" exact component={Normativas} />
                     <Route
-                      path="/proyectos/normativas"
+                      path="/normativas"
                       exact
                       component={Normativas}
                     />
@@ -266,6 +267,11 @@ useEffect(() => {
                       path="/error"
                       exact
                       component={Error404}
+                    />
+                    <Route
+                      path="/soporte"
+                      exact
+                      component={Soporte}
                     />
                   </Switch>
                 </div>

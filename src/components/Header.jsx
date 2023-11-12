@@ -100,11 +100,13 @@ const useStyles = makeStyles(() => ({
     justifyContent: 'center',
     background: 'linear-gradient(to left , #9BC76D, #5AA123)',
     boxShadow: '0 5px 2px -2px gray',
-    height: '4.5rem',
-    width: '100%',
+    height: '40%',
+    width: '95%',
     alignItems: 'center',
     color: '#fafafa',
     fontSize: '2vh',
+    margin: '0% 2% 2% 2%',
+    padding: '2% 2%'
   },
   icon: {
     color: '#5AA123',

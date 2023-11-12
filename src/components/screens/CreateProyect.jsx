@@ -184,15 +184,16 @@ const CreateProyect = () => {
   };
 
   const handlePicker = (event, setDate, onlyYear = false) => {
+    const diaSeleccionado = new Date(event);
+
     if (onlyYear) {
-      const year = moment(event).format('YYYY');
-      const yearToValue = moment(year);
+      const year = diaSeleccionado.getFullYear();
+      const yearToValue = new Date(year, 0, 1);
 
       setDate(year);
       setAñoValue(yearToValue);
     } else {
-      const date = moment(event).add(1, 'days').format('YYYY-MM-DD');
-      setDate(date);
+      setDate(diaSeleccionado);
     }
   };
   const clearStates = () => {

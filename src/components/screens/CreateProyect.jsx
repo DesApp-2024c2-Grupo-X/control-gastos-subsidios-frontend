@@ -20,6 +20,11 @@ import Rubro from '../dashboards/Rubro.jsx';
 import esLocale from 'date-fns/locale/es';
 import { agrupamientoID } from '../../constants/grouping.js';
 import { listaOrganismo } from '../../constants/organizations.js';
+import Select from '@mui/material/Select';
+import Menu from '@mui/material/Menu';
+import InputLabel from '@mui/material/InputLabel';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
 
 const useStyles = makeStyles((theme) => ({
   formContainer: {
@@ -362,55 +367,89 @@ const CreateProyect = () => {
                 helperText={camposErrors[0].message}
                 type="text"
               />
-              <TextField
-                id="outlined-name"
-                label="Tipo"
-                value={tipo}
-                onChange={(e) => {
-                  handleChange(e, setTipo);
-                }}
-                select
-                variant="outlined"
-                className={classes.field}
-                error={camposErrors[1].error}
-                helperText={camposErrors[1].message}
-              >
-                <MenuItem key={1} value="Investigación básica">
-                  Investigación básica
-                </MenuItem>
-                <MenuItem key={2} value="Investigación aplicada">
-                  Investigación aplicada
-                </MenuItem>
-                <MenuItem key={3} value="Desarrollo experimental">
-                  Desarrollo experimental
-                </MenuItem>
-              </TextField>
-              <TextField
-                id="outlined-name"
-                label="Organismo"
-                value={organismo}
-                onChange={(e) => {
-                  handleChange(e, setOrganismo);
-                }}
-                variant="outlined"
-                select
-                className={classes.field}
-                error={camposErrors[2].error}
-                helperText={camposErrors[2].message}
-              >
-                {listaOrganismo.map((org) => (
-                  <MenuItem
-                    item
-                    key={org.id}
-                    value={org.value}
-                    className={classes.menuItem}
-                    divider
-                    selected
-                  >
-                    {org.value}
+              <FormControl fullWidth>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  className={classes.field}
+                >
+                  Tipo
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Tipo"
+                  variant="outlined"
+                  value={tipo}
+                  onChange={(e) => {
+                    handleChange(e, setTipo);
+                  }}
+                  className={classes.field}
+                  error={camposErrors[4].error}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: '300px',
+                      },
+                    },
+                  }}
+                >
+                  <MenuItem disabled value="">
+                    <em>Tipo</em>
                   </MenuItem>
-                ))}
-              </TextField>
+                  <MenuItem key={1} value="Investigación básica">
+                    Investigación básica
+                  </MenuItem>
+                  <MenuItem key={2} value="Investigación aplicada">
+                    Investigación aplicada
+                  </MenuItem>
+                  <MenuItem key={3} value="Desarrollo experimental">
+                    Desarrollo experimental
+                  </MenuItem>
+                </Select>
+              </FormControl>
+              <FormControl fullWidth>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  className={classes.field}
+                >
+                  Organismo
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Organismo"
+                  variant="outlined"
+                  value={organismo}
+                  onChange={(e) => {
+                    handleChange(e, setOrganismo);
+                  }}
+                  className={classes.field}
+                  error={camposErrors[4].error}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: '300px',
+                      },
+                    },
+                  }}
+                >
+                  <MenuItem disabled value="">
+                    <em>Organismo</em>
+                  </MenuItem>
+                  {listaOrganismo.map((org) => (
+                    <MenuItem
+                      item
+                      key={org.id}
+                      value={org.value}
+                      className={classes.menuItem}
+                      divider
+                      selected
+                    >
+                      {org.value}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               <TextField
                 id="outlined-name"
                 label="Línea de financiamiento"
@@ -431,31 +470,48 @@ const CreateProyect = () => {
                 helperText={camposErrors[3].message}
                 type="text"
               />
-              <TextField
-                id="outlined-name"
-                label="Agrupamiento de I+D"
-                value={unidadAcademica}
-                onChange={(e) => {
-                  handleChange(e, setUnidadAcademica);
-                }}
-                select
-                variant="outlined"
-                className={classes.field}
-                error={camposErrors[4].error}
-                helperText={camposErrors[4].message}
-                type="text"
-              >
-                {agrupamientoID.map((agrupamiento) => (
-                  <MenuItem
-                    key={agrupamiento.id}
-                    value={agrupamiento.value}
-                    divider
-                    selected
-                  >
-                    {agrupamiento.value}
+              <FormControl fullWidth>
+                <InputLabel
+                  id="demo-simple-select-label"
+                  className={classes.field}
+                >
+                  Agrupamiento de I+D
+                </InputLabel>
+                <Select
+                  labelId="demo-simple-select-label"
+                  id="demo-simple-select"
+                  label="Agrupamiento de I+D"
+                  variant="outlined"
+                  value={unidadAcademica}
+                  onChange={(e) => {
+                    handleChange(e, setUnidadAcademica);
+                  }}
+                  className={classes.field}
+                  error={camposErrors[4].error}
+                  MenuProps={{
+                    PaperProps: {
+                      style: {
+                        maxHeight: '300px',
+                      },
+                    },
+                  }}
+                >
+                  <MenuItem disabled value="">
+                    <em>Agrupamiento de I+D</em>
                   </MenuItem>
-                ))}
-              </TextField>
+                  {agrupamientoID.map((agrupamiento) => (
+                    <MenuItem
+                      key={agrupamiento.id}
+                      value={agrupamiento.value}
+                      className={classes.menuItem}
+                      divider
+                      selected
+                    >
+                      {agrupamiento.value}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
               <TextField
                 id="outlined-name"
                 label="Área temática"

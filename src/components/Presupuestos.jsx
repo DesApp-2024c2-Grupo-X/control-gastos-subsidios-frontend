@@ -116,7 +116,7 @@ export const Presupuestos = ({ idProyecto }) => {
 
   return (
     <>
-      <h1 className={$.title}>Presupuesto</h1>
+      <h1>Presupuesto</h1>
       <div className={$.root}>
         <Divider className={$.divider} />
         {presupuesto ? rendering() : loadingRendering()}

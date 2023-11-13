@@ -120,7 +120,7 @@ export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
 
   return (
     <>
-      <h2>Proyectos en curso</h2>
+      <h1>Proyectos en curso</h1>
       <TableContainer className={$.container} component={Paper}>
         <Table aria-label="customized table">
           <StyledTableHead>

@@ -8,12 +8,9 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { proyectosEnHistoria } from '../constants/constants';
-import {
-  calculateTotalExpenses,
-  nivelDeEjecucion,
-} from '../utils/presupuestos';
-import { getPresupuesto } from '../services/presupuestos';
-import { getAllCompras, getComprasByProyecto } from '../services/compras';
+import { calculateTotalExpenses, nivelDeEjecucion} from '../utils/presupuestos';
+import { getPresupuestoByIdProyecto } from '../services/presupuestos';
+import { getComprasByProyecto } from '../services/compras';
 import {
   Box,
   CircularProgress,
@@ -55,11 +52,28 @@ const StyledTableHeadTerminados = withStyles(() => ({
 export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
   const $ = useStyles();
   const [proyectosEnCurso, setProyectosEnCurso] = useState([]);
-  const [compras, setCompras] = useState([]);
-  const [presupuesto, setPresupuesto] = useState([]);
+  const [listaDePresupuestos, setPresupuesto] = useState([]);   
   const [isMounted, setMounted] = useState(true);
+     
+  const handleSelect = (id,idProyecto) => {
+    if (id == idProyecto) {
+      handleSetProyect(null);
+      setMounted(false)
+    } else {
+      handleSetProyect(id);
+      setMounted(true)
+    }
+  };
+    
+  const calcularNivelEjecucion = (compras, presupuesto) => {
+    const gastos = calculateTotalExpenses(compras);
+    const totalPresupuesto = presupuesto;
+    const ejecucion = nivelDeEjecucion(totalPresupuesto, gastos); 
+    return ejecucion;
+  };
 
-  const circularProgressWithValue = (nivelEjecucion) => {
+  const circularProgressWithValue = (index, list) => {
+    const nivelEjecucion = calcularNivelEjecucion(list[index].compras, list[index].presupuesto)
     return (
       <Box position="relative" display="inline-flex">
         <CircularProgress variant="determinate" value={nivelEjecucion} />
@@ -80,44 +94,29 @@ export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
       </Box>
     );
   };
-  
-  const handleSelect = (id,idProyecto) => {
-    if (id == idProyecto) {
-      handleSetProyect(null);
-      setMounted(false)
-    } else {
-      handleSetProyect(id);
-      setMounted(true)
-    }
-  };
-  
-  
-  
-  const calcularNivelEjecucion = () => {
-    const gastos = calculateTotalExpenses(compras);
-    const totalPresupuesto = presupuesto.total;
-    const ejecucion = nivelDeEjecucion(totalPresupuesto, gastos); 
-    return ejecucion;
-  };
+
+  async function setearPresupuesto (proyectoId) {
+      const comprasRealizadas = await getComprasByProyecto(proyectoId)
+      const presupuestoProyecto = await getPresupuestoByIdProyecto(proyectoId);
+      listaDePresupuestos.push({"compras": comprasRealizadas, "presupuesto": presupuestoProyecto})
+  } 
   
   async function fetchData(userName) {
     const proyectos = await getProyecto(userName);
-    console.log("Proyect for user: ",proyectos)
-    //const comprasRealizadas = await getAllCompras();
-    const comprasRealizadas = await getComprasByProyecto(idProyecto)
-    const presupuestoProyecto = await getPresupuesto();
-    if (isMounted) {
-      setCompras(comprasRealizadas);
-      setProyectosEnCurso(proyectos);
-      setPresupuesto(presupuestoProyecto);
+    const promises = proyectos.map(async (proyecto) => {
+      await setearPresupuesto(proyecto.id);
+    });
+    await Promise.all(promises);
+    if (isMounted) {      
+      setProyectosEnCurso(proyectos);      
     }
   }
+  
   useEffect(() => {   
     //Cargar proyectos
     fetchData(userName);        
-  }, []);
-
-
+  }, [isMounted]);
+  
   return (
     <>
       <h1>Proyectos en curso</h1>
@@ -143,7 +142,7 @@ export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
             </StyledTableRow>
           </StyledTableHead>
           <TableBody>
-            {proyectosEnCurso.map((proyecto) => (
+            {proyectosEnCurso.map((proyecto,index) => (
               <StyledTableRow
                 key={proyecto.id}
                 className={
@@ -161,9 +160,7 @@ export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
                   {formatDate(proyecto.fechaInicio)}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {circularProgressWithValue(
-                    calcularNivelEjecucion(compras, presupuesto)
-                  )}
+                  {listaDePresupuestos && circularProgressWithValue(index , listaDePresupuestos )}
                 </StyledTableCell>
                 <StyledTableCell>
                   <Button
@@ -215,7 +212,7 @@ export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
                   {formatDate(proyectosEnHistoria.fechaInicio)}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {circularProgressWithValue(100)}
+                  {"Hi" /*circularProgressWithValue(100)}*/ }
                 </StyledTableCell>
               </StyledTableRow>
             ))}

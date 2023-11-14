@@ -1,10 +1,6 @@
-import { Footer } from '../Footer';
 import { makeStyles } from '@material-ui/core/styles';
-import Card from '@material-ui/core/Card';
 import Typography from '@material-ui/core/Typography';
 import {Container, Paper} from '@material-ui/core';
-
-
 
 const Soporte = ()=>{
   const $ = useStyles();

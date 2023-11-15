@@ -9,6 +9,7 @@ import RCS339_21 from '../assets/Normativas/RCS 339_21 Filiación institucional.
 import RCS101_23 from '../assets/Normativas/RCS.-101-14-06-23-Reglamento-del-Comite-Universitario-de-Bioetica-EXP.-106-19.pdf';
 import RCS100_23 from '../assets/Normativas/RCS.-100-14-06-23-Reglamento-de-Proyectos-y-Programas-de-Investigacion-y-Desarrollo-EXP.-490-23.pdf';
 import RCS135_23 from '../assets/Normativas/RCS.-135-12-07-2023-Reglamento-de-Becas-de-Formacion-en-ID-EXP.-035-18.pdf';
+import Met_Pagos_o_Reintegros from '../assets/Normativas/Metodología para solicitar pagos o reintegros a responsables.pdf';
 
 export const Normativas = () => {
   const $ = useStyles();
@@ -29,7 +30,7 @@ export const Normativas = () => {
                 <b>
                   RCS N° 217/21 Reglamento de Definición, Creación y evaluación
                   de Agrupamientos de Investigación y Desarrollo, Transferencia
-                  e Innovación(SIN ACTUALIZAR)
+                  e Innovación
                 </b>
                 <IconButton
                   color="primary"
@@ -42,7 +43,7 @@ export const Normativas = () => {
               <li>
                 <b>
                   RCS N° 339/21 Modificación a la RCS.Nro. 61/19 Filiación
-                  Institucional(SIN ACTUALIZAR)
+                  Institucional
                 </b>
                 <IconButton
                   color="primary"
@@ -83,6 +84,18 @@ export const Normativas = () => {
                   color="primary"
                   href={RCS135_23}
                   download="RCS135_23"
+                >
+                  <GetAppIcon />
+                </IconButton>
+              </li>
+              <li>
+                <b>
+                  Metodología para solicitar pagos o reintegros a responsables
+                </b>
+                <IconButton
+                  color="primary"
+                  href={Met_Pagos_o_Reintegros}
+                  download="Met_Pagos_o_Reintegros"
                 >
                   <GetAppIcon />
                 </IconButton>

@@ -64,6 +64,57 @@ export const proyectosEnCurso = [
   },
 ];
 
+export const comprasDeHistoria = [
+  {
+    nombre:
+      'Sistema de Realidad Virtual para el Entrenamiento de Operarios de Excavadoras Hidráulicas',
+    director: 'Lazo, Marcos Gonzalo',
+    fechaInicio: '2021-06-10',
+    porcentaje: 100,
+    compras: [
+      {
+        id: 11,
+        fecha: '2023-11-14',
+        numeroCompra: 8,
+        monto: '61500.00',
+        estado: 'Pendiente',
+        factura: '123',
+        cae: 123,
+        nombre: '123123',
+        idSubsidio: 1,
+        idProveedor: 2,
+        subRubro: 'lala',
+        createdAt: '2023-11-14T01:21:32.772Z',
+        updatedAt: '2023-11-14T01:21:32.772Z',
+        SubsidiosAsignado: {
+          id: 1,
+          idProyecto: 1,
+          idRubro: 1,
+          montoAsignado: 61500,
+          createdAt: '2023-11-01T00:40:22.024Z',
+          updatedAt: '2023-11-01T00:40:22.024Z',
+          Rubro: {
+            id: 1,
+            nombre: 'Insumos',
+            createdAt: '2023-11-01T00:40:21.977Z',
+            updatedAt: '2023-11-01T00:40:21.977Z',
+          },
+        },
+        Proveedore: {
+          id: 2,
+          nombre: 'Turismocity',
+          telefono: '0810-810-9994',
+          mail: 'subscription@alertas.turismocity.com',
+          cuit: '31-70130711-5',
+          createdAt: '2023-11-01T00:40:22.051Z',
+          updatedAt: '2023-11-01T00:40:22.051Z',
+        },
+      },
+    ],
+    presupuesto: 61500,
+  },
+];
+
 export const proyectosEnHistoria = [
   {
     nombre:

@@ -126,6 +126,7 @@ export default function App() {
 
   function setPathRolAdmin(){
     if (rol === 'admin' && !window.location.href.endsWith('/admin/projects')) {
+      
       window.location.href = 'admin/projects';
     }
   }
@@ -134,7 +135,7 @@ useEffect(() => {
    // Verificar Login
    checkLogin();
   // Redirección después de que se ha establecido el rol
-  setPathRolAdmin()
+ // setPathRolAdmin()
   // Verificar proyectos
   fetchProyecto(); 
 }, [rol,idProyecto]);
@@ -162,7 +163,9 @@ useEffect(() => {
                   <Header setLoggedIn={setLoggedIn} userName={userName} />
                   <div className={$.content}>
                     <Switch>
-                      <Route path="/admin/projects" component={ProyectsLists} />
+                    <Route path="/" exact component={ProyectsLists} />
+                    <Route path="/admin/projects" component={ProyectsLists} />
+
                       <Route path="/login" component={Login} />
                       <Route
                         path="/admin/createProject"

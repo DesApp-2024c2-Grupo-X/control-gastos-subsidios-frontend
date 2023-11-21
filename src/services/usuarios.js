@@ -13,6 +13,23 @@ export async function getUsuarios() {
   return response.json(); // parses JSON response into native JavaScript objects
 }
 
+export async function uploadFile(file, id) {
+  const formData = new FormData();
+  formData.append('pdf', file);
+
+  fetch(`http://localhost:3001/api/usuarios/upload/${id}`, {
+    method: 'POST',
+    body: formData,
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Archivo subido con éxito');
+    })
+    .catch((error) => {
+      console.error('Error al subir el archivo:');
+    });
+}
+
 export async function getUser(user) {
   const url = `http://localhost:3001/api/usuarios/searchUser/${user}`;
   const response = await fetch(url, {

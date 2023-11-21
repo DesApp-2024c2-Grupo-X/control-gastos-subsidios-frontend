@@ -14,6 +14,8 @@ import { useEffect } from 'react';
 import { getCompraByID } from '../../services/compras';
 import { getProveedorById } from '../../services/proveedores';
 import { useState } from 'react';
+import axios from 'axios';
+import { Button } from '@material-ui/core';
 
 const useStyles = makeStyles({
   table: {
@@ -23,6 +25,8 @@ const useStyles = makeStyles({
 
 const SolicitudCompra = () => {
   const classes = useStyles();
+
+  const [pdfContent, setPdfContent] = useState(null);
 
   const StyledTableHead = withStyles(() => ({
     root: {
@@ -66,7 +70,41 @@ const SolicitudCompra = () => {
     }
   }
 
+  const handleDownload = () => {
+    if (pdfContent) {
+      // Crea un objeto Blob con el contenido del PDF
+      const pdfBlob = new Blob([pdfContent], { type: 'application/pdf' });
+
+      // Crea una URL de datos a partir del Blob
+      const pdfUrl = URL.createObjectURL(pdfBlob);
+
+      // Crea un enlace temporal y simula un clic para iniciar la descarga
+      const link = document.createElement('a');
+      link.href = pdfUrl;
+      link.download = 'documento.pdf';
+      link.click();
+    }
+  };
+
   useEffect(() => {
+    
+    const fetchPDF = async () => {
+      try {
+        // Realiza una solicitud GET al endpoint en el backend que devuelve el PDF
+        const response = await axios.get(`http://localhost:3001/api/usuarios/download/${compra.id}`, {
+          responseType: 'arraybuffer',
+        });
+  
+        // Convierte el array buffer en una URL de datos
+        const blob = new Blob([response.data], { type: 'application/pdf' });
+  
+        // Establece el contenido del PDF en el estado
+        setPdfContent(blob);
+        } catch (error) {
+          console.error('Error al obtener el PDF:', error);
+      }
+    };
+    fetchPDF();
     if (changeCompra) {
       fetchCompra();
       setChangeCompra(null);
@@ -140,6 +178,7 @@ const SolicitudCompra = () => {
             </TableRow>
             <TableBody></TableBody>
           </Table>
+          <Button className={classes.buttonList} onClick={handleDownload} >ACAAAA</Button>
         </StyledTableContainer>
         {compra.estado === 'Pendiente' ? (
           <ComprasModal

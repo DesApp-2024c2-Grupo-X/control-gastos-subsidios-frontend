@@ -28,7 +28,6 @@ export const DatosGenerales = ({ idProyecto }) => {
       const proyecto = await getProyectoById(id); //Tiene que ser por ID la busqueda
       const idConvocatoria = proyecto[0].idConvocatoria;
       const convocatoria = await getConvocatoriaById(idConvocatoria);
-      console.log('Convocatoria', convocatoria.nombre);
       setConvocatoria(convocatoria.nombre);
     } catch (err) {
       console.log('[DatosGenerales Component] ERROR : ' + err);
@@ -44,7 +43,6 @@ export const DatosGenerales = ({ idProyecto }) => {
           const subsidiosProyecto = await getTotalSubsidio(idProyecto);
           setSubsidioProyecto(subsidiosProyecto);
           fetchConvocatorias(idProyecto);
-          console.log('Subsidios de los proyectos', subsidiosProyecto);
           if (isMounted) {
             setProyecto(proyecto[0]);
           }

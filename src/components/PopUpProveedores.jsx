@@ -53,7 +53,7 @@ export default function PopUpProveedores(props) {
     const esValido = regex.test("20-20304050-1");
     
 
-console.log("PRUEBA REGEX",esValido); // true
+
     return regex.test(cuit);
   };
   

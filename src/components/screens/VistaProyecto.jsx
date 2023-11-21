@@ -34,7 +34,7 @@ export const VistaProyecto = () => {
   const [convocatoria, setConvocatoria] = useState(null);
   const userName = sessionStorage.getItem('username');
 
-  console.log('USERNAME', userName);
+  
 
   //const idProyecto = sessionStorage.getItem("idProyecto");
   //useEffect para traer la proyecto del proyecto de la api.
@@ -64,7 +64,7 @@ export const VistaProyecto = () => {
     try {
       const id = sessionStorage.getItem('idProyecto');
       const presupuesto = await getTotalSubsidio(id);
-      console.log(presupuesto);
+      
       setPresupuesto(presupuesto);
     } catch (err) {
       console.log('Falló fetch presupuesto');
@@ -89,7 +89,6 @@ export const VistaProyecto = () => {
     try {
       const id = sessionStorage.getItem('idProyecto');
       const compras = await getComprasByProyecto(id);
-      console.log('compras:', compras);
       setCompras(compras);
     } catch (err) {
       console.log('ERROR FETCH API [compras]: ' + err);
@@ -100,7 +99,6 @@ export const VistaProyecto = () => {
       const id = sessionStorage.getItem('idProyecto');
       const proyecto = await getProyectoById(id); //Tiene que ser por ID la busqueda
       setProyecto(proyecto[0]);
-      console.log('proyecto:', proyecto);
     } catch (err) {
       console.log('[DatosGenerales Component] ERROR : ' + err);
     }
@@ -112,7 +110,6 @@ export const VistaProyecto = () => {
       const proyecto = await getProyectoById(id); //Tiene que ser por ID la busqueda
       const idConvocatoria = proyecto[0].idConvocatoria;
       const convocatoria = await getConvocatoriaById(idConvocatoria);
-      console.log('Convocatoria', convocatoria);
       setConvocatoria(convocatoria);
     } catch (err) {
       console.log('[DatosGenerales Component] ERROR : ' + err);
@@ -163,8 +160,6 @@ export const VistaProyecto = () => {
   }))(TableRow);
 
   const DatosList = () => {
-    console.log('PROYECTO', proyecto);
-    console.log('USUARIOPROYECTO', usuarioProyecto);
     return (
       <TableContainer className={$.container} component={Paper}>
         <Table aria-label="customized table">

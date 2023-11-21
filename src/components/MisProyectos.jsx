@@ -72,7 +72,6 @@ export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
   };
 
   const circularProgressWithValue = (index, list) => {
-    console.log("ListaInCircu",list)
     const nivelEjecucion = calcularNivelEjecucion(list[index].compras, list[index].presupuesto)
     return (
       <Box position="relative" display="inline-flex">

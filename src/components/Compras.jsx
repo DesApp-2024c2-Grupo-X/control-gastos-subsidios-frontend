@@ -69,9 +69,7 @@ export const Compras = (idProyecto) => {
   useEffect(() => {
     async function fetchCompra() {
       try {
-        console.log('idProyecto', idProyecto);
         const compras = await getComprasByProyecto(idProyecto.idProyecto); // se Hardcodea(idProyecto);
-        console.log('Compras realizadas', compras);
         setCompras(
           compras.sort(function (a, b) {
             var textA = a.fecha;

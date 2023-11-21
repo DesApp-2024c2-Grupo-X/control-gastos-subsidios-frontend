@@ -143,7 +143,6 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
 
   const [subrubro, setSubrubro] = useState(null);
   const [fecha, setFecha] = useState(null);
-  console.log('Fecha: ', fecha);
   const [idproveedor, setProveedor] = useState('');
   const [monto, setMonto] = useState(0);
   const [cae, setCae] = useState();
@@ -203,7 +202,6 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
         const rubros = await listadetodos();
         //const rubrosJson = await rubros;
         setRubros(rubros);
-        console.log('Rubros: ', rubros);
       } catch (error) {
         console.log('error en el fetch de Rubros : ' + error);
       }
@@ -237,27 +235,19 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
         idProyecto,
         rubro
       );
-      console.log('RUBRO', rubro);
-      //console.log("Sucidio asignado: ", subsidioAsignado);
-      // Con el subsidioAsignado, consulta en la API de compras, todas
-      // las que tengan este idSubsidio
+      
       const totalComprasSubsidio = await getAllGastosPorRubro(idProyecto);
-      console.log('ID PROYECTO', idProyecto);
-      console.log('TOTAL COMPRAS', totalComprasSubsidio);
-      //filter(gastos => gastos.rubro == subsidioAsignado.Rubro.nombre)//await getAllGastosPorRubro(idProyecto)//"500"//await getTotalxSubsidio(subsidioAsignado.id);
-      //const totalFilter = totalComprasSubsidio.length==0 ? 0 : totalComprasSubsidio.filter(a => a.rubro == subsidioAsignado.Rubro.nombre)[0].gastosAprobados
       const totalFilter2 = totalComprasSubsidio.find(
         (a) => a.rubro == subsidioAsignado.Rubro.nombre
       );
       const totalGastos = totalFilter2 ? totalFilter2.gastosAprobados : 0;
-      console.log('TotalComprasXsub: ', totalComprasSubsidio);
-      //console.log("TotalFilter: " , totalFilter)
+      
+      
       const dineroDisponible = calcularDineroDisponiblePorRubro(
         subsidioAsignado.montoAsignado,
         totalGastos,
         JSON.stringify(subsidioAsignado.Rubro.nombre)
       );
-      console.log('dineroDisponible: ', dineroDisponible);
       setSubsidio(subsidioAsignado);
       setDisponibleRubro(dineroDisponible);
     }
@@ -273,7 +263,6 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
     gastosRubro,
     nombreRubro
   ) => {
-    //console.log("presupuestoTotal", presupuestoTotal, "gastosRubro",gastosRubro, "nombreRubro" ,nombreRubro)
     return nombreRubro ? parseInt(presupuestoTotal) - parseInt(gastosRubro) : 0;
   };
 
@@ -538,21 +527,6 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
               }
               error={errorEmailNewProveedor}
             />
-            {/* 
-            <span className={$.label}>Rubro</span>
-            <Autocomplete
-              id="rubro"
-              options={rubros}
-              getOptionLabel={(option) => option}
-              className={$.inputForm}
-              renderInput={(params) => (
-                <TextField {...params} label="Seleccione un rubro" />
-              )}
-              onChange={(e, value) =>
-                handleNewProveedor(value, setNewProveedorRubro)
-              }
-            />
-            */}
 
             <Button onClick={sendDataNewProveedor} disabled={!canAddProveedor}>
               Agregar proveedor

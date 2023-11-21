@@ -74,7 +74,6 @@ export const ProyectsList = () => {
           })
         );
   
-        console.log("PROYECTOS", proyectosConDatosAdicionales);
         setProyects(proyectosConDatosAdicionales);
       } catch (error) {
         // Manejar errores si es necesario

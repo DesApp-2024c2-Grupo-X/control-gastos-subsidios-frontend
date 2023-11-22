@@ -11,6 +11,7 @@ import {
   InputLabel,
   Select,
   Tooltip,
+  styled,
 } from '@material-ui/core';
 import { postCompra, getAllGastosPorRubro } from '../services/compras.js';
 
@@ -32,6 +33,20 @@ import { MuiPickersUtilsProvider } from '@material-ui/pickers';
 import DateFnsUtils from '@date-io/date-fns';
 import esLocale from 'date-fns/locale/es';
 import { DatePicker } from '@material-ui/pickers';
+import { uploadFile } from '../services/usuarios.js';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -192,6 +207,12 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
     //newProveedorRubro &&
     newProveedorNombre && newProveedorCuit && newProveedorTelefono;
 
+    const [file, setFile] = useState(null);
+
+    const handleFileChange = (e) => {
+      setFile(e.target.files[0]);
+    };
+
   //Consts
   //const rubros = getRubros();
   //Rubros fetch
@@ -282,6 +303,7 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
       cae: cae,
     };
     const res = await postCompra(data);
+    uploadFile(file, res.id);
     stateNewCompra(true);
     console.log('[PopUpCompras] submitForm response: ', res);
   };
@@ -533,6 +555,13 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
             </Button>
           </div>
         )}
+        <div className={$.cargarFactura}>
+          <Button component="label" variant="contained" startIcon={<CloudUploadIcon />}>
+              Adjuntar factura
+              <input type="file" onChange={handleFileChange} hidden/>
+          </Button>
+        </div>
+
         <br />
         <br />
         <Divider />

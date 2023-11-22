@@ -1,7 +1,6 @@
 import getEnvironment from '../utils/environment';
-
 const SERVICES_CONFIG = getEnvironment();
-
+console.log('Url back', SERVICES_CONFIG);
 export async function getUsuarios() {
   const url = `${SERVICES_CONFIG}/usuarios`;
   const response = await fetch(url, {

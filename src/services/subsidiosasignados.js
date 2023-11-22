@@ -35,7 +35,7 @@ export async function getSubsidios(idProyecto) {
 }
 
 export async function getSubsidioXProyectoXRubro(idProyecto, idRubro) {
-  const EXTRA_PATH = '/xproyectoxrubro/';
+  const EXTRA_PATH = '/subsidiosAsignados/xproyectoxrubro/';
   const endpoint = `${SERVICES_CONFIG}${EXTRA_PATH}${idProyecto}/${idRubro}`;
   const response = await fetch(endpoint, {
     method: 'GET',

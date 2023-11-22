@@ -30,6 +30,29 @@ export async function uploadFile(file, id) {
     });
 }
 
+export async function downloadFile(id) {
+  fetch(`http://localhost:3001/api/usuarios/download/${id}`, {
+    method: 'GET',
+    // Aquí puedes agregar encabezados u otros datos necesarios para tu API
+  })
+    .then((response) => response.blob()) // Convertir la respuesta a un blob
+    .then((blob) => {
+      // Crear un objeto URL para el blob
+      const url = window.URL.createObjectURL(blob);
+      // Crear un elemento <a> para descargar el PDF
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `factura${id}.pdf`; // Nombre del archivo a descargar
+      // Simular clic en el enlace para iniciar la descarga
+      a.click();
+      // Liberar recursos
+      window.URL.revokeObjectURL(url);
+    })
+    .catch((error) => {
+      console.error('Error al descargar el PDF:', error);
+    });
+}
+
 export async function getUser(user) {
   const url = `http://localhost:3001/api/usuarios/searchUser/${user}`;
   const response = await fetch(url, {

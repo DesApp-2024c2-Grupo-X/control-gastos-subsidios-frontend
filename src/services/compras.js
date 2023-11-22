@@ -1,11 +1,9 @@
-const SERVICES_CONFIG = {
-  baseUrl: 'http://localhost',
-  port: ':3001',
-  path: '/api/compras',
-};
+import getEnvironment from '../utils/environment';
 
+const SERVICES_CONFIG = getEnvironment();
+console.log(SERVICES_CONFIG);
 export async function getAllCompras() {
-  const endpoint = `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}`;
+  const endpoint = `${SERVICES_CONFIG}/compras`;
   const response = await fetch(endpoint, {
     method: 'GET',
     mode: 'cors', // no-cors, *cors, same-origin
@@ -20,7 +18,7 @@ export async function getAllCompras() {
 }
 
 export async function getComprasByProyecto(idProyecto) {
-  const endpoint = `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}/getComprasByProyecto/${idProyecto}`;
+  const endpoint = `${SERVICES_CONFIG}/compras/getComprasByProyecto/${idProyecto}`;
   const response = await fetch(endpoint, {
     //method: 'POST',
     method: 'GET',
@@ -37,7 +35,7 @@ export async function getComprasByProyecto(idProyecto) {
 }
 
 export async function postCompra(body) {
-  const endpoint = `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}`;
+  const endpoint = `${SERVICES_CONFIG}/compras`;
   const response = await fetch(endpoint, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
@@ -53,7 +51,7 @@ export async function postCompra(body) {
 
 export async function getGastosPorRubro(rubro, idProyecto) {
   const EXTRA_PATH = '/gastos/findByRubro';
-  const endpoint = `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}${EXTRA_PATH}?rubro=${rubro}&idProyecto=${idProyecto}`;
+  const endpoint = `${SERVICES_CONFIG}/compras${EXTRA_PATH}?rubro=${rubro}&idProyecto=${idProyecto}`;
   const response = await fetch(endpoint, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
@@ -69,7 +67,7 @@ export async function getGastosPorRubro(rubro, idProyecto) {
 
 export async function getTotalxSubsidio(idSubsidio) {
   const EXTRA_PATH = '/getTotalxSubsidios/';
-  const endpoint = `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}${EXTRA_PATH}${idSubsidio}`;
+  const endpoint = `${SERVICES_CONFIG}/compras${EXTRA_PATH}${idSubsidio}`;
   const response = await fetch(endpoint, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
@@ -85,7 +83,7 @@ export async function getTotalxSubsidio(idSubsidio) {
 
 export async function getCompraByID(idCompra) {
   const EXTRA_PATH = '/getCompraById';
-  const endpoint = `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}${EXTRA_PATH}/${idCompra}`;
+  const endpoint = `${SERVICES_CONFIG}/compras${EXTRA_PATH}/${idCompra}`;
   const response = await fetch(endpoint, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
@@ -100,7 +98,7 @@ export async function getCompraByID(idCompra) {
 }
 
 export async function putCompra(id, body) {
-  const endpoint = `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}/${id}`;
+  const endpoint = `${SERVICES_CONFIG}/compras/${id}`;
   const response = await fetch(endpoint, {
     method: 'PUT', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin
@@ -116,7 +114,7 @@ export async function putCompra(id, body) {
 
 export async function getAllGastosPorRubro(idProyecto) {
   const EXTRA_PATH = '/getCompraTotal';
-  const endpoint = `${SERVICES_CONFIG.baseUrl}${SERVICES_CONFIG.port}${SERVICES_CONFIG.path}${EXTRA_PATH}/${idProyecto}`;
+  const endpoint = `${SERVICES_CONFIG}/compras${EXTRA_PATH}/${idProyecto}`;
   const response = await fetch(endpoint, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // no-cors, *cors, same-origin

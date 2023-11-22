@@ -1,5 +1,9 @@
+import getEnvironment from '../utils/environment';
+
+const SERVICES_CONFIG = getEnvironment();
+
 export async function getUsuarios() {
-  const url = 'http://localhost:3001/api/usuarios';
+  const url = `${SERVICES_CONFIG}/usuarios`;
   const response = await fetch(url, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // *no-cors, *cors, same-origin
@@ -14,7 +18,7 @@ export async function getUsuarios() {
 }
 
 export async function getUser(user) {
-  const url = `http://localhost:3001/api/usuarios/searchUser/${user}`;
+  const url = `${SERVICES_CONFIG}/usuarios/searchUser/${user}`;
   const response = await fetch(url, {
     method: 'GET', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // *no-cors, *cors, same-origin
@@ -29,7 +33,7 @@ export async function getUser(user) {
 }
 
 export async function createUser(user) {
-  const url = 'http://localhost:3001/api/usuarios/newUser';
+  const url = '`${SERVICES_CONFIG}/usuarios/newUser';
   const response = await fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // *no-cors, *cors, same-origin
@@ -45,7 +49,7 @@ export async function createUser(user) {
 }
 
 export async function setUserActualProject(usuario, projectId) {
-  const url = 'http://localhost:3001/api/usuarios/setUserProject';
+  const url = `${SERVICES_CONFIG}/usuarios/setUserProject`;
   const response = await fetch(url, {
     method: 'PUT', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // *no-cors, *cors, same-origin

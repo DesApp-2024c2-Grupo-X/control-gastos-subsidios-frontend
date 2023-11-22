@@ -164,14 +164,13 @@ useEffect(() => {
                   <div className={$.content}>
                     <Switch>
                     <Route path="/" exact component={ProyectsLists} />
-                    <Route path="/admin/projects" component={ProyectsLists} />
-
-                      <Route path="/login" component={Login} />
+                    <Route path="/admin/projects" exact component={ProyectsLists} />
                       <Route
                         path="/admin/createProject"
+                        exact
                         component={CreateProyect}
                       />
-                      <Route path="/admin/createUser" component={CreateUser} />
+                      <Route path="/admin/createUser" exact component={CreateUser} />
                       <Route path="/admin/projectView"
                         exact
                         component={() => (
@@ -214,7 +213,6 @@ useEffect(() => {
                 />
                 <div className={$.content}>
                   <Switch>
-                    <Route path="/login" component={Login} />
                     <Route
                       path="/"
                       exact
@@ -248,6 +246,7 @@ useEffect(() => {
                     />
                     <Route
                       path="/proyectos/compras"
+                      exact
                       component={() => (
                         <Compras
                         idProyecto={idProyecto}                        
@@ -260,7 +259,7 @@ useEffect(() => {
                       exact
                       component={Proveedores}
                     />
-                    <Route path="/normativas" exact component={Normativas} />
+                   
                     <Route
                       path="/normativas"
                       exact

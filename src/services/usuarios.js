@@ -21,7 +21,7 @@ export async function uploadFile(file, id) {
   const formData = new FormData();
   formData.append('pdf', file);
 
-  fetch(`http://localhost:3001/api/usuarios/upload/${id}`, {
+  fetch(`${SERVICES_CONFIG}/usuarios/upload/${id}`, {
     method: 'POST',
     body: formData,
   })
@@ -35,7 +35,7 @@ export async function uploadFile(file, id) {
 }
 
 export async function downloadFile(id) {
-  fetch(`http://localhost:3001/api/usuarios/download/${id}`, {
+  fetch(`${SERVICES_CONFIG}/usuarios/download/${id}`, {
     method: 'GET',
     // Aquí puedes agregar encabezados u otros datos necesarios para tu API
   })

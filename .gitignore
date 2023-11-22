@@ -26,6 +26,5 @@ yarn-error.log*
 .eslintcache
 
 # env variables file
-.env
 .env.example
 README.md

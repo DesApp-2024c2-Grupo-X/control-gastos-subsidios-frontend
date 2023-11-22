@@ -1,45 +1,48 @@
+import getEnvironment from '../utils/environment';
+const SERVICES_CONFIG = getEnvironment();
+
 export async function getAllProveedores() {
-  const url = 'http://localhost:3001/api/proveedores';
+  const url = `${SERVICES_CONFIG}/proveedores`;
   const response = await fetch(url, {
-    method: 'GET', // *GET, POST, PUT, DELETE, etc.
-    mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },
-    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    referrerPolicy: 'no-referrer',
   });
-  return response.json(); // parses JSON response into native JavaScript objects
+  return response.json();
 }
 
 export async function postProveedor(body) {
-  const url = 'http://localhost:3001/api/proveedores';
+  const url = `${SERVICES_CONFIG}/proveedores`;
   const response = await fetch(url, {
-    method: 'POST', // *GET, POST, PUT, DELETE, etc.
-    mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
+    method: 'POST',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },
     body: JSON.stringify(body),
-    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    referrerPolicy: 'no-referrer',
   });
-  return response; // parses JSON response into native JavaScript objects
+  return response;
 }
 
 export async function getProveedorById(idProyecto) {
-  const url = `http://localhost:3001/api/proveedores/${idProyecto}`;
+  const url = `${SERVICES_CONFIG}/proveedores/${idProyecto}`;
   const response = await fetch(url, {
-    method: 'GET', // *GET, POST, PUT, DELETE, etc.
-    mode: 'cors', // no-cors, *cors, same-origin
-    cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
-    credentials: 'same-origin', // include, *same-origin, omit
+    method: 'GET',
+    mode: 'cors',
+    cache: 'no-cache',
+    credentials: 'same-origin',
     headers: {
       'Content-Type': 'application/json',
     },
-    referrerPolicy: 'no-referrer', // no-referrer, *no-referrer-when-downgrade, origin, origin-when-cross-origin, same-origin, strict-origin, strict-origin-when-cross-origin, unsafe-url
+    referrerPolicy: 'no-referrer',
   });
-  return response.json(); // parses JSON response into native JavaScript objects
+  return response.json();
 }

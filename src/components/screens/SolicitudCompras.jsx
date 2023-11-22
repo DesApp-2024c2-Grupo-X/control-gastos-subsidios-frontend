@@ -14,6 +14,9 @@ import { useEffect } from 'react';
 import { getCompraByID } from '../../services/compras';
 import { getProveedorById } from '../../services/proveedores';
 import { useState } from 'react';
+import axios from 'axios';
+import { Button } from '@material-ui/core';
+import { downloadFile } from '../../services/usuarios';
 
 const useStyles = makeStyles({
   table: {
@@ -63,6 +66,14 @@ const SolicitudCompra = () => {
       setProveedor(proveedor.nombre);
     } catch (err) {
       console.log('ERROR FETCH API [compras]: ' + err);
+    }
+  }
+
+  async function handleDownload() {
+    try {
+      const file = await downloadFile(compra.id);
+    } catch (err) {
+      console.log('No se encontro el archivo: ' + err);
     }
   }
 
@@ -140,6 +151,7 @@ const SolicitudCompra = () => {
             </TableRow>
             <TableBody></TableBody>
           </Table>
+          <Button className={classes.buttonList} onClick={handleDownload} >Descargar factura</Button>
         </StyledTableContainer>
         {compra.estado === 'Pendiente' ? (
           <ComprasModal

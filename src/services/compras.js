@@ -44,7 +44,7 @@ export async function postCompra(body) {
     },
     body: JSON.stringify(body),
   });
-  return response;
+  return response.json();
 }
 
 export async function getGastosPorRubro(rubro, idProyecto) {

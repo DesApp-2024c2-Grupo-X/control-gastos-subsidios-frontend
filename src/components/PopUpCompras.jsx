@@ -193,6 +193,8 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
   //actualmente (idProyecto) y el rubro, que se selecciono (idRubro).
   const [subsidio, setSubsidio] = useState(null);
 
+  const [archivoSubido, setArchivoSubido] = useState(false);
+
   const canSubmit =
     rubro &&
     nroFactura &&
@@ -211,6 +213,7 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
 
     const handleFileChange = (e) => {
       setFile(e.target.files[0]);
+      setArchivoSubido(true);
     };
 
   //Consts
@@ -560,6 +563,10 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
               Adjuntar factura
               <input type="file" onChange={handleFileChange} hidden/>
           </Button>
+          {archivoSubido 
+            ? <Typography variant="h8"  style={{ margin: 10, color: 'green' }}>Archivo cargado exitosamente</Typography>
+            : null
+          }
         </div>
 
         <br />

@@ -1,6 +1,6 @@
 import getEnvironment from '../utils/environment';
 const SERVICES_CONFIG = getEnvironment();
-console.log('Url back', SERVICES_CONFIG);
+//console.log('Url back', SERVICES_CONFIG);
 export async function getUsuarios() {
   const url = `${SERVICES_CONFIG}/usuarios`;
   const response = await fetch(url, {
@@ -72,7 +72,7 @@ export async function getUser(user) {
 }
 
 export async function createUser(user) {
-  const url = '`${SERVICES_CONFIG}/usuarios/newUser';
+  const url = `${SERVICES_CONFIG}/usuarios/newUser`;
   const response = await fetch(url, {
     method: 'POST', // *GET, POST, PUT, DELETE, etc.
     mode: 'cors', // *no-cors, *cors, same-origin

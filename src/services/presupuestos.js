@@ -26,7 +26,7 @@ export async function getPresupuestoByIdProyecto(idProyecto) {
 }
 
 export async function listadetodos() {
-  const url = `${SERVICES_CONFIG}/api/rubros/getRubros`;
+  const url = `${SERVICES_CONFIG}/rubros/getRubros`;
   const response = await fetch(url, {
     method: 'GET',
     mode: 'cors',

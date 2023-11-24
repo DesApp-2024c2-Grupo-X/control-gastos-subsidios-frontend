@@ -39,12 +39,12 @@ Fue escogida por su amplio soporte online en caso de dificultades.
 
 ## GitHub
 
-Para descargar el proyecto deberás contar con github instalado, el cual es un sistema de control de versiones distribuido que te ayuda a realizar un seguimiento de los cambios en tu código fuente y permite una colaboración fluida entre desarrolladores. Si no sabes lo que es te dejamos un link:
-[Github Started](https://docs.github.com/es/get-started)
+Para descargar el proyecto se deberá contar con github instalado, el cual es un sistema de control de versiones distribuido que ayudará a realizar un seguimiento de los cambios en tu código fuente y permite una colaboración fluida entre desarrolladores.
+Aquí se encontrará la documentación introductoria de GitHub:[Github Started](https://docs.github.com/es/get-started)
 
 ## Descargar e instalar NodeJS
 
-Para publicar e instalar paquetes hacia y desde el registro público de npm o un registro privado de npm, debe instalar Node.js y la interfaz de línea de comandos de npm utilizando un administrador de versiones de Node o un instalador de Node.
+Para publicar e instalar paquetes hacia y desde el registro público de npm o un registro privado de npm, se deberá instalar Node.js y la interfaz de línea de comandos de npm mediante un administrador de versiones de Node o un instalador de Node.
 
 Link de descarga: [NodeJS - NPM](https://nodejs.org/en/download) .
 
@@ -54,10 +54,9 @@ Link de descarga: [NodeJS - NPM](https://nodejs.org/en/download) .
 
 **1. Clonar o descargar el repositorio**
 
-Si eliges clonar el repositorio lo puedes hacer desde una terminal con el comando `git clone https://github.com/unahur-desapp/control-gastos-subsidios-frontend.git` .
+Para clonar el repositorio se puede hacer desde una terminal de windows o desde la herramienta bash con el siguiente comando:`git clone https://github.com/unahur-desapp/control-gastos-subsidios-frontend.git` .
 
-Si eliges descargarlo solo debes ingresar al link del repositorio:
-[Front-end](https://github.com/unahur-desapp/control-gastos-subsidios-frontend).
+Para descargarlo ingresar al link del repositorio: [Front-end](https://github.com/unahur-desapp/control-gastos-subsidios-frontend).
 
 **2. Instalación de dependencias**
 
@@ -65,9 +64,8 @@ Una vez descargado o clonado el proyecto debemos abrir una terminal, situarnos d
 Ej: "C:\Users\Windows\Proyecto\control-gastos-subsidios-frontend".
 
 Ejecutar el comando `npm i` o `npm install` (para instalar las dependencias).
-Después de terminar la instalación de las mismas ejecutar `npm start` para correr el proyecto localmente.
-El mismo quedará corriendo en la url _“localhost:3000”_.
-Esto dejará corriendo el proyecto mientras no cierres la terminal, recuerda que hasta que no instales y corras el backend nadie responderá tus consultas y por ende no podrás logearte.
+Luego de finalizar la instalación de las mismas, se debe ejecutar el comando `npm start` para correr el proyecto localmente en la url _“localhost:3000”_.
+Esto dejará operativo el proyecto mientras no se cierre la terminal, se debe recordar que hasta que no esté instalado y en ejecución el backend nadie responderá tus consultas y por ende no podrás iniciar sesión.
 
 # Back-end (Local)
 
@@ -75,34 +73,33 @@ Esto dejará corriendo el proyecto mientras no cierres la terminal, recuerda que
 
 **1. Clonar o descargar el repositorio**
 
-Si eliges clonar el repositorio lo puedes hacer desde una terminal con el comando `git clone https://github.com/unahur-desapp/control-gastos-subsidios-backend.git`
+Al elegir clonar el repositorio se puede hacer desde una terminal con el comando `git clone https://github.com/unahur-desapp/control-gastos-subsidios-backend.git`
 
-Si eliges descargarlo solo debes ingresar al link del repositorio:
-[Back-end](https://github.com/unahur-desapp/control-gastos-subsidios-backend).
+Para descargarlo ingresar al link del repositorio: [Back-end](https://github.com/unahur-desapp/control-gastos-subsidios-backend).
 
 **2. Descargar e instalar el motor de base de datos postgres**
 
-Se debe instalar el motor de base datos y de preferencia un gestor para administrar la misma. Como motor se debe instalar postgres y como herramienta de gestor recomendamos pgAdmin.
+Se necesita instalar el motor de base datos y de preferencia un gestor para administrar la misma. Como motor se debe instalar Postgres y como herramienta de gestión recomendamos pgAdmin.
 Para ello dejamos un link donde puedes descargar ambos de un mismo lugar: [Postgres y pgAdmin](https://www.enterprisedb.com/downloads/postgres-postgresql-downloads)
 
 En caso de no funcionar el link se puede descargar el motor de base de datos postgres por algún otro link y pgAdmin de su página oficial.
 
 **3. Configurar base de datos**
 
-Si utilizas la herramienta pgAdmin, una vez instalado deberás configurar un servidor. Ejecuta el pgAdmin y el mismo te va a invitar a configurar un servidor nuevo, si no es asi puedes hacer click secundario que abrira un desplegable -> Servers -> Register -> Server.
+Al utilizar la herramienta pgAdmin, una vez instalado se deberá configurar un servidor. Ejecutar el pgAdmin y el mismo solicitará configurar un servidor nuevo, en caso de no ser así se deberá hacer click secundario lo que abrirá un desplegable -> Servers -> Register -> Server.
 
-- En la sección `General` debes poner un nombre en el campo `name`.
-- En la sección `Connection` configura el `Host name` = `localhost` y el `Port` = `5432` , ponle un `usuario` = `postgres` y una `contraseña` = `admin`; El usuario y la contraseña mas adelante seran utilizadas por el back-end para comunicarse con la base.
-- Al finalizar click en `Save`.
+- En la sección `General` se deberá poner un nombre en el campo `name`.
+- En la sección `Connection` se deberá configurar el `Host name` = `localhost` y el `Port` = `5432` , ponle un `usuario` = `postgres` y una `contraseña` = `admin`; El usuario y la contraseña más adelante serán utilizadas por el back-end para comunicarse con la base. `Save`.
 
-Tambien debemos crear una base de datos. En el servidor creado debes hacer click secundario que abrira un desplegable -> Create -> DataBase
+También hay que crear una base de datos. En el servidor creado al hacer click secundario se abrirá un desplegable -> Create -> DataBase
 
-- En la sección `General` solo debes poner un nombre en el campo `database`.
+- En la sección `General` solo se deberá poner un nombre en el campo`database`.
 - Al finalizar click en `Save`.
 
 **4. Modificar las variables de entorno**
 
-En el repositorio clonado anteriormente verás un archivo con nombre `.env.development` si no existe debes crearlo, el mismo lo deberás modificar con los datos de tu base. La cual creamos en el paso anterior. Te dejamos un ejemplo de cómo se debería ver el archivo.
+En el repositorio clonado anteriormente se visualizará un archivo con nombre `.env.development` si no existe se deberá crear. El mismo se deberá modificar con los datos de la base de datos, la cual fue creada en el paso anterior.
+Te dejamos un ejemplo de cómo se debería ver el archivo.
 
 ```
 SQL_USERNAME=postgres
@@ -117,21 +114,21 @@ En este archivo se encuentran las variables que va a usar la aplicación para co
 
 **5. Instalación de dependencias**
 
-Abrir una terminal, situarnos donde descargamos o clonamos el proyecto. Ej: "C:\Users\Windows\Proyecto\control-gastos-subsidios-backend".
+Abrir una terminal, situarse donde se descargó o clonó el proyecto. Ej: "C:\Users\Windows\Proyecto\control-gastos-subsidios-backend".
 Ejecutamos el comando `npm i` o `npm install` (para instalar las dependencias).
 Esperar la instalación de las mismas.
 
 **6. Migración de la base**
 
-Podemos abrir una terminal o usar la misma que en el punto anterior, lo que necesitamos es situarnos donde descargamos o clonamos el proyecto. Para migrar la base si configuramos todo bien solo debemos utilizar el comando `npm run db:init` para crear la base y `npm run db:seed` para cargar un set de datos.
+PSe deberá abrir una terminal o usar la misma que en el punto anterior, lo que se necesitará es situarse donde se descargó o clonó el proyecto. Para migrar la base, solo habrá que utilizar el comando `npm run db:init` para crear la base y `npm run db:seed` para cargar un set de datos.
 
 **7. Arrancar el proyecto**
 
-Para ello situados en el proyecto ejecutar el comando `npm start` para correr el proyecto localmente. El mismo quedará corriendo en la url _“localhost:3001”_.
-Esto dejará corriendo la base de datos mientras no cierres la terminal; la cual responderá a las consultas del front-end.
+Para ello hay que situarse en el proyecto y ejecutar el comando `npm start` para correr el proyecto localmente.El mismo quedará operativo en la url _“localhost:3001”_.
+Esto dejará en funcionamiento la base de datos mientras no se cierre la terminal, la cual responderá a las consultas del front-end.
 
-## Colección / Colleccion
+## Colección
 
-Dejamos un link con la colección y sus métodos funcionales en localhost, la misma fue generada y extraída en Postman que es una aplicación que nos permite testear APIs a través de una interfaz gráfica de usuario.
+Se deja asentado un link con la colección y sus métodos funcionales en localhost, la misma fue generada y extraída en Postman que es la aplicación que nos permite testear APIs a través de una interfaz gráfica de usuario.
 
-[Colección / Colleccion](https://api.postman.com/collections/23966358-8480fbe9-da46-4fb9-89ea-c9d3fa36dbdf?access_key=PMAT-01HEV7YE7DCMATG81N9PE375VT)
+[Colección](https://grupo4-unahur.postman.co/workspace/Subsidios~ca6cdd2f-a9dc-4aee-a453-e99991b1fca5/collection/23966358-8480fbe9-da46-4fb9-89ea-c9d3fa36dbdf?action=share&creator=20821660)

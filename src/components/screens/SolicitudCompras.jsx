@@ -14,7 +14,6 @@ import { useEffect } from 'react';
 import { getCompraByID } from '../../services/compras';
 import { getProveedorById } from '../../services/proveedores';
 import { useState } from 'react';
-import axios from 'axios';
 import { Button } from '@material-ui/core';
 import { downloadFile, downloadFile2 } from '../../services/usuarios';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
@@ -64,6 +63,7 @@ const SolicitudCompra = () => {
       const id = sessionStorage.getItem('idCompra');
       const unaCompra = await getCompraByID(id);
       setCompra(unaCompra);
+      await downloadFile2(unaCompra.id, setFileUploaded)
       const proveedor = await getProveedorById(unaCompra.idProveedor);
       setProveedor(proveedor.nombre);
     } catch (err) {
@@ -73,7 +73,7 @@ const SolicitudCompra = () => {
 
   async function handleDownload() {
     try {
-      const file = await downloadFile(compra.id);
+      await downloadFile(compra.id);
     } catch (err) {
       console.log('No se encontro el archivo: ' + err);
     }
@@ -83,8 +83,9 @@ const SolicitudCompra = () => {
     if (changeCompra) {
       fetchCompra();
       setChangeCompra(null);
-      // downloadFile2(compra.id,setFileUploaded)
-      // console.log("SE SUBIO WEON",fileUploaded);
+      
+      
+      console.log("fileUploaded",fileUploaded);
     } else {
       console.log('Not changed');
     }
@@ -93,7 +94,7 @@ const SolicitudCompra = () => {
     <div>
       <h1>Solicitud de compra</h1>
       <div>
-        <StyledTableContainer component={Paper} maxWidht="">
+        <StyledTableContainer component={Paper} maxwidht="">
           <Table className={classes.table} aria-label="simple table">
             <StyledTableHead>
               <TableRow>

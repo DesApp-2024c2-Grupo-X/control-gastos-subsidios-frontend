@@ -1,7 +1,7 @@
 import { makeStyles } from '@material-ui/core/styles';
 import Typography from '@material-ui/core/Typography';
-import {Container, Paper,Card} from '@material-ui/core';
-
+import {Card} from '@material-ui/core';
+import { Footer } from '../Footer';
 const Soporte = ()=>{
   const $ = useStyles();
   return (
@@ -11,11 +11,9 @@ const Soporte = ()=>{
           <h1>Soporte</h1>
         </div>     
     <Card className={$.paper}>
-        <Typography variant="h4" gutterBottom>
-          ¡Soporte Técnico Personalizado a un <a href="mailto:soporte_unahur@gmail.com?subject=Consulta%20-%20Proyecto%20-%20Investigacion">
-          Clic! 
-                 </a>
-        </Typography>
+        <h2>
+          ¡Soporte Técnico Personalizado a un <a href="mailto:soporte_unahur@gmail.com?subject=Consulta%20-%20Proyecto%20-%20Investigacion">Clic</a>!
+        </h2>
         <Typography paragraph>
           En la Universidad Nacional de Hurlingham, entendemos la importancia de mantener tus
           sistemas en funcionamiento sin problemas. Nuestro equipo de soporte
@@ -62,14 +60,14 @@ const Soporte = ()=>{
           tecnología funcionando sin problemas!
         </Typography>
         <Typography variant="subtitle1">
-          Atentamente <strong>Soporte técnico</strong>
-          <br />
-          <strong>Contacto: </strong> <a href="mailto:soporte_unahur@gmail.com?subject=Consulta%20-%20Proyecto%20-%20Investigacion">
-                soporte_unahur@gmail.com 
-                 </a> (Consulta de Proyecto de Investigación)
+          Atentamente <a href="mailto:soporte_unahur@gmail.com?subject=Consulta%20-%20Proyecto%20-%20Investigacion">
+          <strong>Soporte técnico</strong>
+                 </a>
+         
+          
         </Typography>
       </Card>
-    
+      <Footer />
     </div>
     </>
         
@@ -87,6 +85,8 @@ const useStyles = makeStyles(() => ({
   paper: {
     paddingRight: '1rem',
     paddingLeft: '1rem',
+    
+    
   },
   divider: {
     marginTop: '2vh',

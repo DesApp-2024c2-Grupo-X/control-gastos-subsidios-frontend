@@ -101,11 +101,11 @@ const useStyles = makeStyles(() => ({
     background: 'linear-gradient(to left , #9BC76D, #5AA123)',
     boxShadow: '0 5px 2px -2px gray',
     height: '40%',
-    width: '95%',
+    width: '97%',
     alignItems: 'center',
     color: '#fafafa',
     fontSize: '2vh',
-    margin: '0% 2% 2% 2%',
+    margin: '0% 0% 0% 1%',
     padding: '2% 2%'
   },
   icon: {

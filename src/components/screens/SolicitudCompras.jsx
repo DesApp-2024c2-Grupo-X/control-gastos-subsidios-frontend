@@ -16,7 +16,8 @@ import { getProveedorById } from '../../services/proveedores';
 import { useState } from 'react';
 import axios from 'axios';
 import { Button } from '@material-ui/core';
-import { downloadFile } from '../../services/usuarios';
+import { downloadFile, downloadFile2 } from '../../services/usuarios';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
 const useStyles = makeStyles({
   table: {
@@ -56,6 +57,7 @@ const SolicitudCompra = () => {
   const [compra, setCompra] = useState([]);
   const [proveedor, setProveedor] = useState([]);
   const [changeCompra, setChangeCompra] = useState(true);
+  const [fileUploaded,setFileUploaded]= useState(true)
   console.log('Compra', compra);
   async function fetchCompra() {
     try {
@@ -81,6 +83,8 @@ const SolicitudCompra = () => {
     if (changeCompra) {
       fetchCompra();
       setChangeCompra(null);
+      // downloadFile2(compra.id,setFileUploaded)
+      // console.log("SE SUBIO WEON",fileUploaded);
     } else {
       console.log('Not changed');
     }
@@ -149,9 +153,13 @@ const SolicitudCompra = () => {
                 </StyledState>
               </TableCell>
             </TableRow>
-            <TableBody></TableBody>
+            <TableRow>
+            {fileUploaded&&
+            <TableCell>
+              <Button variant="contained" startIcon={<CloudUploadIcon />} onClick={handleDownload} >Descargar factura</Button>
+            </TableCell>}
+          </TableRow>
           </Table>
-          <Button className={classes.buttonList} onClick={handleDownload} >Descargar factura</Button>
         </StyledTableContainer>
         {compra.estado === 'Pendiente' ? (
           <ComprasModal

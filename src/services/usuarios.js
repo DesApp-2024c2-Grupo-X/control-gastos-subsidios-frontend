@@ -32,6 +32,19 @@ export async function uploadFile(file, id) {
       console.error('Error al subir el archivo:');
     });
 }
+export async function downloadFile2(id, funcion) {
+  fetch(`${SERVICES_CONFIG}/usuarios/download/${id}`, {
+    method: 'GET',
+    // Aquí puedes agregar encabezados u otros datos necesarios para tu API
+  })
+    .then(
+      (response) => (response.status == 200 ? funcion(true) : funcion(false)),
+      console.log('ENTRE')
+    )
+    .catch((error) => {
+      console.error('Error al descargar el PDF:', error);
+    });
+}
 
 export async function downloadFile(id) {
   fetch(`${SERVICES_CONFIG}/usuarios/download/${id}`, {

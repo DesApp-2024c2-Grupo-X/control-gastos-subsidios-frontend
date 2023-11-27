@@ -724,7 +724,7 @@ const CreateProyect = () => {
                     multiple
                     id="usuarios-responsables"
                     options={usuarios.filter((user) => user.rol === 'otro')}
-                    getOptionLabel={(option) => option.nombre}
+                    getOptionLabel={(option) => option.apellido}
                     defaultValue={[]}
                     filterSelectedOptions
                     onChange={(event, newValue) => {

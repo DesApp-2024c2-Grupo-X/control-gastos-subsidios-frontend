@@ -47,7 +47,7 @@ const SolicitudCompra = () => {
       backgroundColor: (props) => props.backgroundColor,
       borderRadius: 40,
       color: 'white',
-      padding: '6px 15px',
+      padding: '6px 14px',
       textAlign: 'center',
       maxWidth: '100px',
     },

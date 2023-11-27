@@ -12,7 +12,7 @@ const Soporte = ()=>{
         </div>     
     <Card className={$.paper}>
         <h2>
-          ¡Soporte Técnico Personalizado a un <a href="mailto:soporte_unahur@gmail.com?subject=Consulta%20-%20Proyecto%20-%20Investigacion">Clic</a>!
+          ¡Soporte técnico personalizado a un <a href="mailto:soporte_unahur@gmail.com?subject=Consulta%20-%20Proyecto%20-%20Investigacion">Clic</a>!
         </h2>
         <Typography paragraph>
           En la Universidad Nacional de Hurlingham, entendemos la importancia de mantener tus

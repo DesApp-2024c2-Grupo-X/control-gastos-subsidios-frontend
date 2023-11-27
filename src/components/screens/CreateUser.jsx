@@ -188,7 +188,7 @@ const CreateUser = () => {
           </MuiPickersUtilsProvider>
           <Autocomplete
             id="outlined-name"
-            options={['admin', 'user']}
+            options={['admin', 'otro']}
             value={role}
             style={{ width: '98%' }}
             onChange={(_, value) => handleChange(value, setRole, true)}

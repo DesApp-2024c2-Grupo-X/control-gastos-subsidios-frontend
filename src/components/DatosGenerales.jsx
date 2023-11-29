@@ -122,7 +122,7 @@ export const DatosGenerales = ({ idProyecto }) => {
         </ListItem>
         <ListItem>
           <ListItemText
-            primary={'Usuario: ' + proyecto.director}
+            primary={'Director: ' + proyecto.director}
             sx={{ ml: 2 }}
           />
         </ListItem>
@@ -138,7 +138,7 @@ export const DatosGenerales = ({ idProyecto }) => {
               <DatosList />
             </CardContent>
           </Card>
-          <Card className={$.card}>
+          {/* <Card className={$.card}>
             <CardContent>
               <List>
                 <Typography className={$.title}>Resumen:</Typography>
@@ -147,7 +147,7 @@ export const DatosGenerales = ({ idProyecto }) => {
                 </Typography>
               </List>
             </CardContent>
-          </Card>
+          </Card> */}
         </div>
       </>
     );

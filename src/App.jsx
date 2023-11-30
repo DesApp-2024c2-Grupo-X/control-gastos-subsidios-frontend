@@ -124,18 +124,10 @@ export default function App() {
     }
   }
 
-  function setPathRolAdmin(){
-    if (rol === 'admin' && !window.location.href.endsWith('/admin/projects')) {
-      
-      window.location.href = 'admin/projects';
-    }
-  }
-
+  
 useEffect(() => {
    // Verificar Login
-   checkLogin();
-  // Redirección después de que se ha establecido el rol
- // setPathRolAdmin()
+   checkLogin();  
   // Verificar proyectos
   fetchProyecto(); 
 }, [rol,idProyecto]);
@@ -160,7 +152,7 @@ useEffect(() => {
               <Router>
                 <NavBar sideBarOptions={adminSideBarOptions} user={userName} />
                 <div className={$.container}>
-                  <Header setLoggedIn={setLoggedIn} userName={userName} />
+                  <Header setLoggedIn={setLoggedIn} userName={userName} handleSetProyect={handleSetProyect} />
                   <div className={$.content}>
                     <Switch>
                     <Route path="/" exact component={ProyectsLists} />
@@ -210,6 +202,7 @@ useEffect(() => {
                   userName={userName}
                   rol={rol}
                   proyecto={proyectoActual}
+                  handleSetProyect={handleSetProyect}
                 />
                 <div className={$.content}>
                   <Switch>

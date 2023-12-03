@@ -7,11 +7,12 @@ import CardContent from '@material-ui/core/CardContent';
 import Divider from '@material-ui/core/Divider';
 //import PopUpCompras from './PopUpCompras';
 import {
-  getComprasByProyecto,  
+  getComprasByProyecto,
+  getTotalxSubsidio,
 } from '../../services/compras';
-
+import { getUser, getUsuarios } from '../../services/usuarios';
 import { getProyectoById, getUserByProyect } from '../../services/proyectos';
-import { formatPrice, formatDate } from '../../utils/validaciones';
+import { formatPrice, formatDate, formatYear } from '../../utils/validaciones';
 import { getTotalSubsidio } from '../../services/subsidiosasignados';
 import {
   Table,
@@ -31,6 +32,12 @@ export const VistaProyecto = () => {
   const [usuarioProyecto, setUsuarioProyecto] = useState('');
   const [presupuesto, setPresupuesto] = useState(0);
   const [convocatoria, setConvocatoria] = useState(null);
+  const userName = sessionStorage.getItem('username');
+
+  
+
+  //const idProyecto = sessionStorage.getItem("idProyecto");
+  //useEffect para traer la proyecto del proyecto de la api.
   //Styles
   const $ = useStyles();
   //States
@@ -42,7 +49,14 @@ export const VistaProyecto = () => {
     sessionStorage.setItem('tituloProyecto', proyecto.titulo);
     //setIdProyecto(id);
   };
-  
+  //const handleOpen = () => {
+  //   setOpen(true);
+  //};
+
+  //const handleClose = () => {
+  //  setOpen(false);
+  //};
+
   //API Call
 
   async function fetchPresupuesto() {

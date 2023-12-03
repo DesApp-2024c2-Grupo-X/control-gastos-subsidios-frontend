@@ -4,6 +4,7 @@ import { Footer } from './Footer';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
+import Typography from '@material-ui/core/Typography';
 import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -11,7 +12,7 @@ import List from '@material-ui/core/List';
 import { getProyectoById } from '../services/proyectos.js';
 import { getTotalSubsidio } from '../services/subsidiosasignados';
 import Alert from '@material-ui/lab/Alert';
-import { formatDate } from '../utils/validaciones';
+import { formatPrice, formatDate, formatYear } from '../utils/validaciones';
 import { getConvocatoriaById } from '../services/convocatorias';
 
 export const DatosGenerales = ({ idProyecto }) => {

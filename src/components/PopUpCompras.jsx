@@ -36,6 +36,17 @@ import { DatePicker } from '@material-ui/pickers';
 import { uploadFile } from '../services/usuarios.js';
 import CloudUploadIcon from '@mui/icons-material/CloudUpload';
 
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -167,7 +178,7 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
   );
 
   //New proveedor fields
-  
+  const [newProveedorRubro, setNewProveedorRubro] = useState(null);
   const [newProveedorNombre, setNewProveedorNombre] = useState(null);
   const [newProveedorCuit, setNewProveedorCuit] = useState(null);
   const [newProveedorTelefono, setNewProveedorTelefono] = useState(null);
@@ -194,7 +205,9 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
     availableMoneyForRubro &&
     nombre &&
     !errorMonto;
-  const canAddProveedor = newProveedorNombre && newProveedorCuit && newProveedorTelefono;
+  const canAddProveedor =
+    //newProveedorRubro &&
+    newProveedorNombre && newProveedorCuit && newProveedorTelefono;
 
     const [file, setFile] = useState(null);
 

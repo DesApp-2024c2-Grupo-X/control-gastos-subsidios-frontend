@@ -18,7 +18,8 @@ export default function Header(props) {
     sessionStorage.removeItem('password');
     sessionStorage.removeItem('role');
     props.setLoggedIn(false);
-    window.location.href = '/'
+    props.handleSetProyect(null); 
+    window.location.href = '/';
   };
 
   const openConfig = () => {

@@ -29,18 +29,29 @@ export default function PopUpProveedores(props) {
 
   const submitForm = async () => {
     props.state(false);
+    const adjustedCuit = cuit.replace(/\D/g, ''); // Elimina cualquier no dígito
+    const formattedCuit = `${adjustedCuit.slice(0, 2)}-${adjustedCuit.slice(
+      2,
+      10
+    )}-${adjustedCuit.slice(10)}`;
     const data = {
       nombre: nombre,
       telefono: telefono,
+      cuit: formattedCuit,
       mail: mail,
-      cuit: cuit,
     };
 
-    const res = await postProveedor(data);
-    setErrorCuit(false);
-    console.log(
-      `[PopUpProveedores component] create proveedor ${JSON.stringify(res)}`
-    );
+    console.log('Que tenemos en data: ', data);
+    try {
+      setErrorCuit(true);
+      const res = await postProveedor(data);
+
+      console.log(
+        `[PopUpProveedores component] create proveedor ${JSON.stringify(res)}`
+      );
+    } catch (err) {
+      console.log('ERROR FETCH API [proveedores]: ' + err);
+    }
   };
   const submitHandle = (handle, value) => {
     handle(value);
@@ -49,14 +60,10 @@ export default function PopUpProveedores(props) {
     props.state(false);
   };
   const validateCUIT = (cuit) => {
-    const regex =/^([0-9]{11}|[0-9]{2}-[0-9]{8}-[0-9]{1})$/
-    const esValido = regex.test("20-20304050-1");
-    
-
+    const regex = /^([0-9]{11}|[0-9]{2}-[0-9]{8}-[0-9]{1})$/;
 
     return regex.test(cuit);
   };
-  
 
   return (
     <>
@@ -92,7 +99,7 @@ export default function PopUpProveedores(props) {
             }}
             error={errorCuit}
             inputProps={{ maxLength: 13 }}
-/>
+          />
           <TextField
             label="E-mail: mail@empresa.com.ar"
             className={$.textField}

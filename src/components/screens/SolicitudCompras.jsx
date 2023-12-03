@@ -114,7 +114,7 @@ const SolicitudCompra = () => {
               <TableCell>{compra.fecha && formatDate(compra.fecha)}</TableCell>
             </TableRow>
             <TableRow>
-              <TableCell>Resumen de compra:</TableCell>
+              <TableCell>Nombre de la compra:</TableCell>
               <TableCell>{compra.nombre}</TableCell>
             </TableRow>
             <TableRow>

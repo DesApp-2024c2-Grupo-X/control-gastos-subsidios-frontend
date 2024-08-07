@@ -10,7 +10,6 @@ import {
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import React, { useEffect, useState } from 'react';
-import PasswordField from 'material-ui-password-field';
 import { getUser } from '../services/usuarios';
 import { Messages } from '../constants/messages';
 import Alert from '@material-ui/lab/Alert';
@@ -120,7 +119,7 @@ const Login = ({
             </FormControl>
             <FormControl className={$.inputLabel}>
               <InputLabel>{Messages.contraseña}</InputLabel>
-              <PasswordField
+              <Input
                 id="my-input"
                 aria-describedby="my-helper-text"
                 onChange={(e) => submitHandle(setPassword, e.target.value)}

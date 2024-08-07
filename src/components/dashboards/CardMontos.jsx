@@ -21,9 +21,9 @@ export default function CardMontos({ totalGastos, totalPresupuesto }) {
             <MonetizationOn className={`${$.prepTotal} ${$.icon}`} />
             <div> Presupuesto total</div>
           </Typography>
-          <span variant="h5" className={$.typography}>
+          <Typography component="span" variant="h5" className={$.typography}>
             {formatPrice(totalPresupuesto)}
-          </span>
+          </Typography>
         </CardContent>
       </Card>
       <Card className={$.root1}>
@@ -32,9 +32,9 @@ export default function CardMontos({ totalGastos, totalPresupuesto }) {
             <MonetizationOn className={`${$.prepTotal} ${$.icon}`} />
             <div>Monto disponible</div>
           </Typography>
-          <span variant="h5" className={$.typography}>
+          <Typography component="span" variant="h5" className={$.typography}>
             {formatPrice(monto)}
-          </span>
+          </Typography>
         </CardContent>
       </Card>
       <Card className={$.root2}>
@@ -43,9 +43,9 @@ export default function CardMontos({ totalGastos, totalPresupuesto }) {
             <BarChart className={`${$.nivelEjec} ${$.icon}`} />
             <div>Nivel de ejecución</div>
           </Typography>
-          <span variant="h5" className={$.typography}>
+          <Typography component="span" variant="h5" className={$.typography}>
             {ejecucion + ' %'}
-          </span>
+          </Typography>
         </CardContent>
       </Card>
     </div>

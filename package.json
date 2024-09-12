@@ -26,7 +26,7 @@
     "react-dom": "^17.0.1",
     "react-error-boundary": "^3.1.0",
     "react-redux": "^8.0.2",
-    "react-router-dom": "^5.2.0",
+    "react-router-dom": "^6.26.2",
     "react-scripts": "5.0.1",
     "web-vitals": "^0.2.4"
   },
@@ -58,11 +58,11 @@
     ]
   },
   "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "7.21.11",
     "husky": "^4.3.6",
     "lint-staged": "^10.5.3",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.2.1",
-    "@babel/plugin-proposal-private-property-in-object": "7.21.11"
+    "prettier": "^2.2.1"
   },
   "husky": {
     "hooks": {

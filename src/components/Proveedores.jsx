@@ -42,6 +42,7 @@ const StyledTableHead = withStyles(() => ({
 export const Proveedores = () => {
   const $ = useStyles();
   const [proveedores, setProveedores] = useState(null);
+  const [newProv, setNewProv] = useState(true);
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => {
@@ -68,8 +69,9 @@ export const Proveedores = () => {
         console.log('ERROR FETCH API [proveedores]: ' + err);
       }
     }
-    fetchProveedores();
-  }, [proveedores]);
+    if (newProv) fetchProveedores();
+    setNewProv(false);
+  }, [newProv]);
 
   const loadingRendering = () => {
     return <Alert severity="info">Cargando...</Alert>;
@@ -123,7 +125,10 @@ export const Proveedores = () => {
           Agregar proveedor
         </Button>
         <Modal open={open} onClose={handleClose}>
-          <PopUp state={setOpen} />
+          <PopUp
+            state={setOpen}
+            stateNewProv={setNewProv}
+          />
         </Modal>
       </Grid>
       <Divider />

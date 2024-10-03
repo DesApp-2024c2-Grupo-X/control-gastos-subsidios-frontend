@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import ReactDOM from 'react-dom';
+import { createRoot } from 'react-dom/client';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {
@@ -13,7 +13,8 @@ import { Alert } from '@material-ui/lab';
 import store from './state/store';
 import { Provider } from 'react-redux';
 
-ReactDOM.render(
+const root = createRoot(document.getElementById('root'));
+root.render(
   <ThemeProvider theme={theme}>
     <React.StrictMode>
       <CssBaseline />

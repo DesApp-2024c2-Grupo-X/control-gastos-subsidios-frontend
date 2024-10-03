@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot } from 'react-dom/client'; //react 18
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import {

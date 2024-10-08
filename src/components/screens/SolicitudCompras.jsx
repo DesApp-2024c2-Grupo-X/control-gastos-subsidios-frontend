@@ -54,14 +54,14 @@ const SolicitudCompra = () => {
   const [compra, setCompra] = useState([]);
   const [proveedor, setProveedor] = useState([]);
   const [changeCompra, setChangeCompra] = useState(true);
-  const [fileUploaded,setFileUploaded]= useState(true)
+  const [fileUploaded, setFileUploaded] = useState(true);
   console.log('Compra', compra);
   async function fetchCompra() {
     try {
       const id = sessionStorage.getItem('idCompra');
       const unaCompra = await getCompraByID(id);
       setCompra(unaCompra);
-      await downloadFile2(unaCompra.id, setFileUploaded)
+      await downloadFile2(unaCompra.id, setFileUploaded);
       const proveedor = await getProveedorById(unaCompra.idProveedor);
       setProveedor(proveedor.nombre);
     } catch (err) {
@@ -81,13 +81,12 @@ const SolicitudCompra = () => {
     if (changeCompra) {
       fetchCompra();
       setChangeCompra(null);
-      
-      
-      console.log("fileUploaded",fileUploaded);
+
+      console.log('fileUploaded', fileUploaded);
     } else {
       console.log('Not changed');
     }
-  }, [changeCompra]);
+  }, [changeCompra, fileUploaded]);
   return (
     <div>
       <h1>Solicitud de compra</h1>
@@ -153,11 +152,18 @@ const SolicitudCompra = () => {
               </TableCell>
             </TableRow>
             <TableRow>
-            {fileUploaded&&
-            <TableCell>
-              <Button variant="contained" startIcon={<CloudUploadIcon />} onClick={handleDownload} >Descargar factura</Button>
-            </TableCell>}
-          </TableRow>
+              {fileUploaded && (
+                <TableCell>
+                  <Button
+                    variant="contained"
+                    startIcon={<CloudUploadIcon />}
+                    onClick={handleDownload}
+                  >
+                    Descargar factura
+                  </Button>
+                </TableCell>
+              )}
+            </TableRow>
           </Table>
         </StyledTableContainer>
         {compra.estado === 'Pendiente' ? (

@@ -19,19 +19,18 @@ import {
   LocalAtm,
   Receipt,
 } from '@material-ui/icons';
-import { Error404 } from "./components/ErrorGenerico";
+import { Error404 } from './components/ErrorGenerico';
 import { Presupuestos } from './components/Presupuestos';
 import { Compras } from './components/Compras';
 import { Proveedores } from './components/Proveedores';
 import Login from './components/Login';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import CreateProyect from './components/screens/CreateProyect';
 import CreateUser from './components/screens/CreateUser';
 import ProyectsLists from './components/screens/ProyectsLists';
 import { VistaProyecto } from './components/screens/VistaProyecto';
 import SolicitudCompra from './components/screens/SolicitudCompras';
 import Soporte from './components/screens/Soporte';
-
 
 export default function App() {
   const $ = useStyles();
@@ -115,109 +114,127 @@ export default function App() {
     loggedIn === 'true' ? setLoggedIn(true) : setLoggedIn(false);
     setInit(true);
   }
-
-  async function fetchProyecto() {
+  const fetchProyecto = useCallback(async () => {
     try {
       const proyecto = await getProyectoById(idProyecto);
       setProyectoActual(proyecto[0]);
     } catch (err) {
       console.log('ERROR FETCH API [proyecto]: ' + err);
     }
-  }
+  }, [idProyecto]);
 
   useEffect(() => {
     checkLogin();
     fetchProyecto();
-  }, [rol, idProyecto]);
+  }, [fetchProyecto, rol, idProyecto]);
 
-  return (
-    init ? (
-      <>
-        {!loggedIn ? (
-          <Login
-            userName={userName}
-            password={password}
-            setPassword={setPassword}
-            setUserName={setUserName}
-            setLoggedIn={setLoggedIn}
-            setRol={setRol}
-            setIdProyecto={setIdProyecto}
-          />
-        ) : rol === 'admin' ? (
-          <>
-            <Container maxWidth="xl" className={$.root}>
-              <Router>
-                <NavBar sideBarOptions={adminSideBarOptions} user={userName} />
-                <div className={$.container}>
-                  <Header setLoggedIn={setLoggedIn} userName={userName} handleSetProyect={handleSetProyect} />
-                  <div className={$.content}>
-                    <Routes>
-                      <Route path="/" element={<ProyectsLists />} />
-                      <Route path="/admin/projects" element={<ProyectsLists />} />
-                      <Route path="/admin/createProject" element={<CreateProyect />} />
-                      <Route path="/admin/createUser" element={<CreateUser />} />
-                      <Route path="/admin/projectView" element={<VistaProyecto idProyecto={idProyecto} setIdProyect={setIdProyecto} />} />
-                      <Route path="/admin/projectView/compra" element={<SolicitudCompra />} />
-                      <Route path="/error" element={<Error404 />} />
-                    </Routes>
-                  </div>
-                </div>
-              </Router>
-            </Container>
-          </>
-        ) : (
+  return init ? (
+    <>
+      {!loggedIn ? (
+        <Login
+          userName={userName}
+          password={password}
+          setPassword={setPassword}
+          setUserName={setUserName}
+          setLoggedIn={setLoggedIn}
+          setRol={setRol}
+          setIdProyecto={setIdProyecto}
+        />
+      ) : rol === 'admin' ? (
+        <>
           <Container maxWidth="xl" className={$.root}>
             <Router>
-              <NavBar
-                sideBarOptions={userSideBarOptions}
-                proyectoActual={proyectoActual}
-              />
+              <NavBar sideBarOptions={adminSideBarOptions} user={userName} />
               <div className={$.container}>
                 <Header
                   setLoggedIn={setLoggedIn}
                   userName={userName}
-                  rol={rol}
-                  proyecto={proyectoActual}
                   handleSetProyect={handleSetProyect}
                 />
                 <div className={$.content}>
                   <Routes>
+                    <Route path="/" element={<ProyectsLists />} />
+                    <Route path="/admin/projects" element={<ProyectsLists />} />
                     <Route
-                      path="/"
+                      path="/admin/createProject"
+                      element={<CreateProyect />}
+                    />
+                    <Route path="/admin/createUser" element={<CreateUser />} />
+                    <Route
+                      path="/admin/projectView"
                       element={
-                        <MisProyectos
-                          userName={userName}
-                          handleSetProyect={handleSetProyect}
+                        <VistaProyecto
                           idProyecto={idProyecto}
+                          setIdProyect={setIdProyecto}
                         />
                       }
                     />
                     <Route
-                      path="/proyectos"
-                      element={<DatosGenerales idProyecto={idProyecto} />}
+                      path="/admin/projectView/compra"
+                      element={<SolicitudCompra />}
                     />
-                    <Route
-                      path="/proyectos/presupuestos"
-                      element={<Presupuestos idProyecto={idProyecto} />}
-                    />
-                    <Route
-                      path="/proyectos/compras"
-                      element={<Compras idProyecto={idProyecto} />}
-                    />
-                    <Route path="/proyectos/proveedores" element={<Proveedores />} />
-                    <Route path="/normativas" element={<Normativas />} />
                     <Route path="/error" element={<Error404 />} />
-                    <Route path="/soporte" element={<Soporte />} />
                   </Routes>
                 </div>
               </div>
             </Router>
           </Container>
-        )}
-      </>
-    ) : (
-      <></>
-    )
+        </>
+      ) : (
+        <Container maxWidth="xl" className={$.root}>
+          <Router>
+            <NavBar
+              sideBarOptions={userSideBarOptions}
+              proyectoActual={proyectoActual}
+            />
+            <div className={$.container}>
+              <Header
+                setLoggedIn={setLoggedIn}
+                userName={userName}
+                rol={rol}
+                proyecto={proyectoActual}
+                handleSetProyect={handleSetProyect}
+              />
+              <div className={$.content}>
+                <Routes>
+                  <Route
+                    path="/"
+                    element={
+                      <MisProyectos
+                        userName={userName}
+                        handleSetProyect={handleSetProyect}
+                        idProyecto={idProyecto}
+                      />
+                    }
+                  />
+                  <Route
+                    path="/proyectos"
+                    element={<DatosGenerales idProyecto={idProyecto} />}
+                  />
+                  <Route
+                    path="/proyectos/presupuestos"
+                    element={<Presupuestos idProyecto={idProyecto} />}
+                  />
+                  <Route
+                    path="/proyectos/compras"
+                    element={<Compras idProyecto={idProyecto} />}
+                  />
+                  <Route
+                    path="/proyectos/proveedores"
+                    element={<Proveedores />}
+                  />
+                  <Route path="/normativas" element={<Normativas />} />
+                  <Route path="/error" element={<Error404 />} />
+                  <Route path="/soporte" element={<Soporte />} />
+                </Routes>
+              </div>
+            </div>
+          </Router>
+        </Container>
+      )}
+    </>
+  ) : (
+    <></>
   );
 }
 

@@ -38,6 +38,7 @@ export default function App() {
   const [password, setPassword] = useState();
   const [idProyecto, setIdProyecto] = useState(null);
   const [rol, setRol] = useState();
+  
   const [init, setInit] = useState(false);
   const [proyectoActual, setProyectoActual] = useState(null);
 
@@ -152,7 +153,7 @@ useEffect(() => {
               <Router>
                 <NavBar sideBarOptions={adminSideBarOptions} user={userName} />
                 <div className={$.container}>
-                  <Header setLoggedIn={setLoggedIn} userName={userName} handleSetProyect={handleSetProyect} />
+                  <Header setLoggedIn={setLoggedIn} userName={userName} handleSetProyect={handleSetProyect} rol={rol}/>
                   <div className={$.content}>
                     <Switch>
                     <Route path="/" exact component={ProyectsLists} />

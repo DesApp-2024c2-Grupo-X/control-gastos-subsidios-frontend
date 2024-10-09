@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Button, makeStyles, MenuItem, Menu } from '@material-ui/core';
+import { Button, makeStyles, MenuItem, Menu, Chip } from '@material-ui/core';
 import { Person, ExpandMore } from '@material-ui/icons';
 
 export default function Header(props) {
@@ -36,6 +36,7 @@ export default function Header(props) {
           
           <Person className={$.icon} />
           <h5>{props.userName}</h5>
+          <Chip size="small" label={"Admin"} className={$.chip}/>
         </Button>
         <Menu
           anchorEl={anchorEl}
@@ -117,4 +118,7 @@ const useStyles = makeStyles(() => ({
   text: {
     margin: 0,
   },
+  chip: {
+    marginLeft: '0.5rem',
+  }
 }));

@@ -45,7 +45,7 @@ export default function PopUpProveedores(props) {
     try {
       setErrorCuit(true);
       const res = await postProveedor(data);
-
+      props.stateNewProv(true);
       console.log(
         `[PopUpProveedores component] create proveedor ${JSON.stringify(res)}`
       );

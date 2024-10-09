@@ -36,7 +36,7 @@ export default function Header(props) {
           
           <Person className={$.icon} />
           <h5>{props.userName}</h5>
-          <Chip size="small" label={"Admin"} className={$.chip}/>
+          <Chip size="small" label={props.rol} className={$.chip}/>
         </Button>
         <Menu
           anchorEl={anchorEl}

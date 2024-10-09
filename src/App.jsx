@@ -1,6 +1,6 @@
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import NavBar from './components/NavBar';
 import { DatosGenerales } from './components/DatosGenerales';
@@ -24,14 +24,13 @@ import { Presupuestos } from './components/Presupuestos';
 import { Compras } from './components/Compras';
 import { Proveedores } from './components/Proveedores';
 import Login from './components/Login';
-import { useEffect, useState, useCallback } from 'react';
+import { useEffect, useState } from 'react';
 import CreateProyect from './components/screens/CreateProyect';
 import CreateUser from './components/screens/CreateUser';
 import ProyectsLists from './components/screens/ProyectsLists';
 import { VistaProyecto } from './components/screens/VistaProyecto';
 import SolicitudCompra from './components/screens/SolicitudCompras';
 import Soporte from './components/screens/Soporte';
-
 export default function App() {
   const $ = useStyles();
   const [loggedIn, setLoggedIn] = useState();
@@ -114,127 +113,154 @@ export default function App() {
     loggedIn === 'true' ? setLoggedIn(true) : setLoggedIn(false);
     setInit(true);
   }
-  const fetchProyecto = useCallback(async () => {
+
+  async function fetchProyecto() {
     try {
       const proyecto = await getProyectoById(idProyecto);
       setProyectoActual(proyecto[0]);
     } catch (err) {
       console.log('ERROR FETCH API [proyecto]: ' + err);
     }
-  }, [idProyecto]);
+  }
 
   useEffect(() => {
+    // Verificar Login
     checkLogin();
+    // Verificar proyectos
     fetchProyecto();
-  }, [fetchProyecto, rol, idProyecto]);
+  }, [rol, idProyecto]);
 
-  return init ? (
-    <>
-      {!loggedIn ? (
-        <Login
-          userName={userName}
-          password={password}
-          setPassword={setPassword}
-          setUserName={setUserName}
-          setLoggedIn={setLoggedIn}
-          setRol={setRol}
-          setIdProyecto={setIdProyecto}
-        />
-      ) : rol === 'admin' ? (
-        <>
+  return (
+    //ToDo: Como quitar espacio sobrante en el borde derecho.
+    init ? (
+      <>
+        {!loggedIn ? (
+          <Login
+            userName={userName}
+            password={password}
+            setPassword={setPassword}
+            setUserName={setUserName}
+            setLoggedIn={setLoggedIn}
+            setRol={setRol}
+            setIdProyecto={setIdProyecto}
+          />
+        ) : rol === 'admin' ? (
+          <>
+            <Container maxWidth="xl" className={$.root}>
+              <Router>
+                <NavBar sideBarOptions={adminSideBarOptions} user={userName} />
+                <div className={$.container}>
+                  <Header
+                    setLoggedIn={setLoggedIn}
+                    userName={userName}
+                    handleSetProyect={handleSetProyect}
+                  />
+                  <div className={$.content}>
+                    <Routes>
+                      <Route path="/" exact component={ProyectsLists} />
+                      <Route
+                        path="/admin/projects"
+                        exact
+                        component={ProyectsLists}
+                      />
+                      <Route
+                        path="/admin/createProject"
+                        exact
+                        component={CreateProyect}
+                      />
+                      <Route
+                        path="/admin/createUser"
+                        exact
+                        component={CreateUser}
+                      />
+                      <Route
+                        path="/admin/projectView"
+                        exact
+                        component={() => (
+                          <VistaProyecto
+                            idProyecto={idProyecto}
+                            setIdProyect={setIdProyecto}
+                          />
+                        )}
+                      />
+                      <Route
+                        path="/admin/projectView/compra"
+                        exact
+                        component={() => <SolicitudCompra />}
+                      />
+                      <Route path="/error" exact component={Error404} />
+                    </Routes>
+                  </div>
+                </div>
+              </Router>
+            </Container>
+          </>
+        ) : (
           <Container maxWidth="xl" className={$.root}>
             <Router>
-              <NavBar sideBarOptions={adminSideBarOptions} user={userName} />
+              <NavBar
+                sideBarOptions={userSideBarOptions}
+                proyectoActual={proyectoActual}
+              />
               <div className={$.container}>
                 <Header
                   setLoggedIn={setLoggedIn}
                   userName={userName}
+                  rol={rol}
+                  proyecto={proyectoActual}
                   handleSetProyect={handleSetProyect}
                 />
                 <div className={$.content}>
                   <Routes>
-                    <Route path="/" element={<ProyectsLists />} />
-                    <Route path="/admin/projects" element={<ProyectsLists />} />
                     <Route
-                      path="/admin/createProject"
-                      element={<CreateProyect />}
-                    />
-                    <Route path="/admin/createUser" element={<CreateUser />} />
-                    <Route
-                      path="/admin/projectView"
-                      element={
-                        <VistaProyecto
+                      path="/"
+                      exact
+                      render={(props) => (
+                        <MisProyectos
+                          MisProyectos
+                          userName={userName}
+                          handleSetProyect={handleSetProyect}
                           idProyecto={idProyecto}
-                          setIdProyect={setIdProyecto}
+                          {...props}
                         />
-                      }
+                      )}
                     />
                     <Route
-                      path="/admin/projectView/compra"
-                      element={<SolicitudCompra />}
+                      path="/proyectos"
+                      exact
+                      component={() => (
+                        <DatosGenerales idProyecto={idProyecto} />
+                      )}
                     />
-                    <Route path="/error" element={<Error404 />} />
+                    <Route
+                      path="/proyectos/presupuestos"
+                      exact
+                      component={() => <Presupuestos idProyecto={idProyecto} />}
+                    />
+                    <Route
+                      path="/proyectos/compras"
+                      exact
+                      component={() => <Compras idProyecto={idProyecto} />}
+                    />
+                    idProyecto
+                    <Route
+                      path="/proyectos/proveedores"
+                      exact
+                      component={Proveedores}
+                    />
+                    <Route path="/normativas" exact component={Normativas} />
+                    <Route path="/error" exact component={Error404} />
+                    <Route path="/soporte" exact component={Soporte} />
                   </Routes>
                 </div>
               </div>
             </Router>
           </Container>
-        </>
-      ) : (
-        <Container maxWidth="xl" className={$.root}>
-          <Router>
-            <NavBar
-              sideBarOptions={userSideBarOptions}
-              proyectoActual={proyectoActual}
-            />
-            <div className={$.container}>
-              <Header
-                setLoggedIn={setLoggedIn}
-                userName={userName}
-                rol={rol}
-                proyecto={proyectoActual}
-                handleSetProyect={handleSetProyect}
-              />
-              <div className={$.content}>
-                <Routes>
-                  <Route
-                    path="/"
-                    element={
-                      <MisProyectos
-                        userName={userName}
-                        handleSetProyect={handleSetProyect}
-                        idProyecto={idProyecto}
-                      />
-                    }
-                  />
-                  <Route
-                    path="/proyectos"
-                    element={<DatosGenerales idProyecto={idProyecto} />}
-                  />
-                  <Route
-                    path="/proyectos/presupuestos"
-                    element={<Presupuestos idProyecto={idProyecto} />}
-                  />
-                  <Route
-                    path="/proyectos/compras"
-                    element={<Compras idProyecto={idProyecto} />}
-                  />
-                  <Route
-                    path="/proyectos/proveedores"
-                    element={<Proveedores />}
-                  />
-                  <Route path="/normativas" element={<Normativas />} />
-                  <Route path="/error" element={<Error404 />} />
-                  <Route path="/soporte" element={<Soporte />} />
-                </Routes>
-              </div>
-            </div>
-          </Router>
-        </Container>
-      )}
-    </>
-  ) : (
-    <></>
+        )}
+      </>
+    ) : (
+      <></>
+    )
   );
 }
 

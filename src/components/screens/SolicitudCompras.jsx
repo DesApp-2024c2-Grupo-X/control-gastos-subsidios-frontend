@@ -86,7 +86,7 @@ const SolicitudCompra = () => {
     } else {
       console.log('Not changed');
     }
-  }, [changeCompra, fileUploaded]);
+  }, [changeCompra]);
   return (
     <div>
       <h1>Solicitud de compra</h1>

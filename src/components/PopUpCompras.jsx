@@ -438,6 +438,7 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
               style={{ width: 300 }}
               variant="outlined"
               inputVariant="outlined"
+              type="number"
               onChange={(e) => submitHandle(setNroFactura, e.target.value)}
               error={''}
             />

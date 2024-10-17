@@ -377,7 +377,7 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
     );
   };
 
-  console.log({idproveedor})
+  
 
   return (
     <>

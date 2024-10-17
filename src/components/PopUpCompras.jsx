@@ -146,6 +146,7 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
   const [rubro, setRubro] = useState('');
 
   const [subrubro, setSubrubro] = useState(null);
+  const [proveedorRazon, setProveedorRazon] = useState(""); 
   const [fecha, setFecha] = useState(null);
   const [idproveedor, setProveedor] = useState('');
   const [monto, setMonto] = useState(0);
@@ -291,6 +292,7 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
       idsubsidio: subsidio.id,
       idproveedor: idproveedor,
       cae: cae,
+      proveedornota: proveedorRazon
     };
     const res = await postCompra(data);
     uploadFile(file, res.id);
@@ -374,6 +376,8 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
       </div>
     );
   };
+
+  
 
   return (
     <>
@@ -473,6 +477,18 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
           <Tooltip title="Agregar proveedor">
             <AddIcon className={$.addIcon} onClick={handleAddProveedor} />
           </Tooltip>
+          
+        </div>
+        <div className={$.proveedor}>
+          {idproveedor !== "" && !!idproveedor && (
+            <TextField
+              variant="outlined"
+              inputVariant="outlined"
+              label="¿Por qué se eligió este proveedor?"
+              style={{ width: 300 }}
+              onChange={(e) => submitHandle(setProveedorRazon, e.target.value)}
+            />
+          )}
         </div>
         {/* Form para cargar nuevo proveedor */}
         {newProveedor && (

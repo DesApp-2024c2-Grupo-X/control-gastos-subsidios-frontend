@@ -447,6 +447,7 @@ export default function PopUpCompras({ state, stateNewCompra, idProyecto }) {
               label="Nro. CAE"
               style={{ width: 300 }}
               variant="outlined"
+              type="number"
               inputVariant="outlined"
               onChange={(e) => submitHandle(setCae, e.target.value)}
               error={''}

@@ -8,7 +8,10 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 import { withStyles, makeStyles } from '@material-ui/core/styles';
 import { proyectosEnHistoria, comprasDeHistoria } from '../constants/constants';
-import { calculateTotalExpenses, nivelDeEjecucion} from '../utils/presupuestos';
+import {
+  calculateTotalExpenses,
+  nivelDeEjecucion,
+} from '../utils/presupuestos';
 import { getPresupuestoByIdProyecto } from '../services/presupuestos';
 import { getComprasByProyecto } from '../services/compras';
 import {
@@ -52,27 +55,28 @@ const StyledTableHeadTerminados = withStyles(() => ({
 export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
   const $ = useStyles();
   const [proyectosEnCurso, setProyectosEnCurso] = useState([]);
-  const [listaDePresupuestos, setPresupuesto] = useState([]);   
+  const [listaDePresupuestos, setPresupuesto] = useState([]);
 
-  const handleSelect = (id,idProyecto) => {
+  const handleSelect = (id, idProyecto) => {
     if (id == idProyecto) {
       handleSetProyect(null);
-      
     } else {
       handleSetProyect(id);
-     
     }
   };
-    
+
   const calcularNivelEjecucion = (compras, presupuesto) => {
     const gastos = calculateTotalExpenses(compras);
     const totalPresupuesto = presupuesto;
-    const ejecucion = nivelDeEjecucion(totalPresupuesto, gastos); 
+    const ejecucion = nivelDeEjecucion(totalPresupuesto, gastos);
     return ejecucion;
   };
 
   const circularProgressWithValue = (index, list) => {
-    const nivelEjecucion = calcularNivelEjecucion(list[index].compras, list[index].presupuesto)
+    const nivelEjecucion = calcularNivelEjecucion(
+      list[index].compras,
+      list[index].presupuesto
+    );
     return (
       <Box position="relative" display="inline-flex">
         <CircularProgress variant="determinate" value={nivelEjecucion} />
@@ -94,26 +98,29 @@ export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
     );
   };
 
-  async function setearPresupuesto (proyectoId) {
-      const comprasRealizadas = await getComprasByProyecto(proyectoId)
-      const presupuestoProyecto = await getPresupuestoByIdProyecto(proyectoId);
-      listaDePresupuestos.push({"compras": comprasRealizadas, "presupuesto": presupuestoProyecto})
-  } 
-  
+  async function setearPresupuesto(proyectoId) {
+    const comprasRealizadas = await getComprasByProyecto(proyectoId);
+    const presupuestoProyecto = await getPresupuestoByIdProyecto(proyectoId);
+    listaDePresupuestos.push({
+      compras: comprasRealizadas,
+      presupuesto: presupuestoProyecto,
+    });
+  }
+
   async function fetchData(userName) {
     const proyectos = await getProyecto(userName);
     const promises = proyectos.map(async (proyecto) => {
       await setearPresupuesto(proyecto.id);
     });
-    await Promise.all(promises);      
-    setProyectosEnCurso(proyectos);          
+    await Promise.all(promises);
+    setProyectosEnCurso(proyectos);
   }
 
-  useEffect(() => {   
+  useEffect(() => {
     //Cargar proyectos
-    fetchData(userName);        
+    fetchData(userName);
   }, [listaDePresupuestos]);
-  
+
   return (
     <>
       <h1>Proyectos en curso</h1>
@@ -139,7 +146,7 @@ export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
             </StyledTableRow>
           </StyledTableHead>
           <TableBody>
-            {proyectosEnCurso.map((proyecto,index) => (
+            {proyectosEnCurso.map((proyecto, index) => (
               <StyledTableRow
                 key={proyecto.id}
                 className={
@@ -157,7 +164,8 @@ export const MisProyectos = ({ userName, handleSetProyect, idProyecto }) => {
                   {formatDate(proyecto.fechaInicio)}
                 </StyledTableCell>
                 <StyledTableCell align="center">
-                  {listaDePresupuestos && circularProgressWithValue(index, listaDePresupuestos)}
+                  {listaDePresupuestos &&
+                    circularProgressWithValue(index, listaDePresupuestos)}
                 </StyledTableCell>
                 <StyledTableCell>
                   <Button

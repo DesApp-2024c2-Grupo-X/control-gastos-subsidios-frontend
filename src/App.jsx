@@ -1,6 +1,6 @@
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import Header from './components/Header';
 import NavBar from './components/NavBar';
 import { DatosGenerales } from './components/DatosGenerales';
@@ -19,7 +19,7 @@ import {
   LocalAtm,
   Receipt,
 } from '@material-ui/icons';
-import { Error404 } from "./components/ErrorGenerico"
+import { Error404 } from './components/ErrorGenerico';
 import { Presupuestos } from './components/Presupuestos';
 import { Compras } from './components/Compras';
 import { Proveedores } from './components/Proveedores';
@@ -96,10 +96,9 @@ export default function App() {
       path: '/admin/createUser',
       canBeDisabled: false,
     },
-
   ];
 
-  function handleSetProyect (id) {
+  function handleSetProyect(id) {
     sessionStorage.setItem('proyectoActualId', id);
     setIdProyecto(id);
   }
@@ -125,14 +124,13 @@ export default function App() {
     }
   }
 
-  
-useEffect(() => {
-   // Verificar Login
-   checkLogin();  
-  // Verificar proyectos
-  fetchProyecto(); 
-}, [rol,idProyecto]);
-  
+  useEffect(() => {
+    // Verificar Login
+    checkLogin();
+    // Verificar proyectos
+    fetchProyecto();
+  }, [rol, idProyecto]);
+
   return (
     //ToDo: Como quitar espacio sobrante en el borde derecho.
     init ? (
@@ -155,16 +153,25 @@ useEffect(() => {
                 <div className={$.container}>
                   <Header setLoggedIn={setLoggedIn} userName={userName} handleSetProyect={handleSetProyect} rol={rol}/>
                   <div className={$.content}>
-                    <Switch>
-                    <Route path="/" exact component={ProyectsLists} />
-                    <Route path="/admin/projects" exact component={ProyectsLists} />
+                    <Routes>
+                      <Route path="/" exact component={ProyectsLists} />
+                      <Route
+                        path="/admin/projects"
+                        exact
+                        component={ProyectsLists}
+                      />
                       <Route
                         path="/admin/createProject"
                         exact
                         component={CreateProyect}
                       />
-                      <Route path="/admin/createUser" exact component={CreateUser} />
-                      <Route path="/admin/projectView"
+                      <Route
+                        path="/admin/createUser"
+                        exact
+                        component={CreateUser}
+                      />
+                      <Route
+                        path="/admin/projectView"
                         exact
                         component={() => (
                           <VistaProyecto
@@ -173,18 +180,13 @@ useEffect(() => {
                           />
                         )}
                       />
-                      <Route path="/admin/projectView/compra"
-                        exact
-                        component={() => (
-                          <SolicitudCompra/>
-                        )}
-                      />
                       <Route
-                        path="/error"
+                        path="/admin/projectView/compra"
                         exact
-                        component={Error404}
-                      />                      
-                    </Switch>
+                        component={() => <SolicitudCompra />}
+                      />
+                      <Route path="/error" exact component={Error404} />
+                    </Routes>
                   </div>
                 </div>
               </Router>
@@ -206,7 +208,7 @@ useEffect(() => {
                   handleSetProyect={handleSetProyect}
                 />
                 <div className={$.content}>
-                  <Switch>
+                  <Routes>
                     <Route
                       path="/"
                       exact
@@ -224,28 +226,18 @@ useEffect(() => {
                       path="/proyectos"
                       exact
                       component={() => (
-                        <DatosGenerales
-                          idProyecto={idProyecto}
-                        />
+                        <DatosGenerales idProyecto={idProyecto} />
                       )}
                     />
                     <Route
                       path="/proyectos/presupuestos"
                       exact
-                      component={() => (
-                        <Presupuestos
-                          idProyecto={idProyecto}
-                        />
-                      )}
+                      component={() => <Presupuestos idProyecto={idProyecto} />}
                     />
                     <Route
                       path="/proyectos/compras"
                       exact
-                      component={() => (
-                        <Compras
-                        idProyecto={idProyecto}                        
-                        />
-                      )}
+                      component={() => <Compras idProyecto={idProyecto} />}
                     />
                     idProyecto
                     <Route
@@ -253,23 +245,10 @@ useEffect(() => {
                       exact
                       component={Proveedores}
                     />
-                   
-                    <Route
-                      path="/normativas"
-                      exact
-                      component={Normativas}
-                    />
-                    <Route
-                      path="/error"
-                      exact
-                      component={Error404}
-                    />
-                    <Route
-                      path="/soporte"
-                      exact
-                      component={Soporte}
-                    />
-                  </Switch>
+                    <Route path="/normativas" exact component={Normativas} />
+                    <Route path="/error" exact component={Error404} />
+                    <Route path="/soporte" exact component={Soporte} />
+                  </Routes>
                 </div>
               </div>
             </Router>

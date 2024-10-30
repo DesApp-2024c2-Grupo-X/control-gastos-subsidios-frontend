@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 import { Container } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
@@ -131,134 +132,94 @@ export default function App() {
     fetchProyecto();
   }, [rol, idProyecto]);
 
-  return (
-    //ToDo: Como quitar espacio sobrante en el borde derecho.
-    init ? (
-      <>
-        {!loggedIn ? (
-          <Login
-            userName={userName}
-            password={password}
-            setPassword={setPassword}
-            setUserName={setUserName}
-            setLoggedIn={setLoggedIn}
-            setRol={setRol}
-            setIdProyecto={setIdProyecto}
-          />
-        ) : rol === 'admin' ? (
-          <>
-            <Container maxWidth="xl" className={$.root}>
-              <Router>
-                <NavBar sideBarOptions={adminSideBarOptions} user={userName} />
-                <div className={$.container}>
-                  <Header setLoggedIn={setLoggedIn} userName={userName} handleSetProyect={handleSetProyect} rol={rol}/>
-                  <div className={$.content}>
-                    <Routes>
-                      <Route path="/" exact component={ProyectsLists} />
-                      <Route
-                        path="/admin/projects"
-                        exact
-                        component={ProyectsLists}
-                      />
-                      <Route
-                        path="/admin/createProject"
-                        exact
-                        component={CreateProyect}
-                      />
-                      <Route
-                        path="/admin/createUser"
-                        exact
-                        component={CreateUser}
-                      />
-                      <Route
-                        path="/admin/projectView"
-                        exact
-                        component={() => (
-                          <VistaProyecto
-                            idProyecto={idProyecto}
-                            setIdProyect={setIdProyecto}
-                          />
-                        )}
-                      />
-                      <Route
-                        path="/admin/projectView/compra"
-                        exact
-                        component={() => <SolicitudCompra />}
-                      />
-                      <Route path="/error" exact component={Error404} />
-                    </Routes>
-                  </div>
-                </div>
-              </Router>
-            </Container>
-          </>
-        ) : (
-          <Container maxWidth="xl" className={$.root}>
-            <Router>
-              <NavBar
-                sideBarOptions={userSideBarOptions}
-                proyectoActual={proyectoActual}
-              />
-              <div className={$.container}>
-                <Header
-                  setLoggedIn={setLoggedIn}
-                  userName={userName}
-                  rol={rol}
-                  proyecto={proyectoActual}
-                  handleSetProyect={handleSetProyect}
+  return init ? (
+    <Router>
+      {!loggedIn ? (
+        <Login
+          userName={userName}
+          password={password}
+          setPassword={setPassword}
+          setUserName={setUserName}
+          setLoggedIn={setLoggedIn}
+          setRol={setRol}
+          setIdProyecto={setIdProyecto}
+        />
+      ) : rol === 'admin' ? (
+        <Container maxWidth="xl" className={$.root}>
+          <NavBar sideBarOptions={adminSideBarOptions} user={userName} />
+          <div className={$.container}>
+            <Header
+              setLoggedIn={setLoggedIn}
+              userName={userName}
+              handleSetProyect={handleSetProyect}
+              rol={rol}
+            />
+            <div className={$.content}>
+              <Routes>
+                <Route path="/" element={<ProyectsLists />} />
+                <Route path="/admin/projects" element={<ProyectsLists />} />
+                <Route path="/admin/createProject" element={<CreateProyect />} />
+                <Route path="/admin/createUser" element={<CreateUser />} />
+                <Route
+                  path="/admin/projectView"
+                  element={<VistaProyecto idProyecto={idProyecto} setIdProyect={setIdProyecto} />}
                 />
-                <div className={$.content}>
-                  <Routes>
-                    <Route
-                      path="/"
-                      exact
-                      render={(props) => (
-                        <MisProyectos
-                          MisProyectos
-                          userName={userName}
-                          handleSetProyect={handleSetProyect}
-                          idProyecto={idProyecto}
-                          {...props}
-                        />
-                      )}
+                <Route path="/admin/projectView/compra" element={<SolicitudCompra />} />
+                <Route path="/error" element={<Error404 />} />
+              </Routes>
+            </div>
+          </div>
+        </Container>
+      ) : (
+        <Container maxWidth="xl" className={$.root}>
+          <NavBar sideBarOptions={userSideBarOptions} proyectoActual={proyectoActual} />
+          <div className={$.container}>
+            <Header
+              setLoggedIn={setLoggedIn}
+              userName={userName}
+              rol={rol}
+              proyecto={proyectoActual}
+              handleSetProyect={handleSetProyect}
+            />
+            <div className={$.content}>
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <MisProyectos
+                      userName={userName}
+                      handleSetProyect={handleSetProyect}
+                      idProyecto={idProyecto}
                     />
-                    <Route
-                      path="/proyectos"
-                      exact
-                      component={() => (
-                        <DatosGenerales idProyecto={idProyecto} />
-                      )}
-                    />
-                    <Route
-                      path="/proyectos/presupuestos"
-                      exact
-                      component={() => <Presupuestos idProyecto={idProyecto} />}
-                    />
-                    <Route
-                      path="/proyectos/compras"
-                      exact
-                      component={() => <Compras idProyecto={idProyecto} />}
-                    />
-                    idProyecto
-                    <Route
-                      path="/proyectos/proveedores"
-                      exact
-                      component={Proveedores}
-                    />
-                    <Route path="/normativas" exact component={Normativas} />
-                    <Route path="/error" exact component={Error404} />
-                    <Route path="/soporte" exact component={Soporte} />
-                  </Routes>
-                </div>
-              </div>
-            </Router>
-          </Container>
-        )}
-      </>
-    ) : (
-      <></>
-    )
-  );
+                  }
+                />
+                <Route
+                  path="/proyectos"
+                  element={<DatosGenerales idProyecto={idProyecto} />}
+                />
+                <Route
+                  path="/proyectos/presupuestos"
+                  element={<Presupuestos idProyecto={idProyecto} />}
+                />
+                <Route
+                  path="/proyectos/compras"
+                  element={<Compras idProyecto={idProyecto} />}
+                />
+                <Route
+                  path="/proyectos/proveedores"
+                  element={<Proveedores />}
+                />
+                <Route path="/normativas" element={<Normativas />} />
+                <Route path="/error" element={<Error404 />} />
+                <Route path="/soporte" element={<Soporte />} />
+              </Routes>
+            </div>
+          </div>
+        </Container>
+      )}
+    </Router>
+  ) : null
+  
 }
 
 const useStyles = makeStyles(() => ({
